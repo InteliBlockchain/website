@@ -13,7 +13,7 @@ const Header = ({ selectedPage }: Props) => {
     <header className="flex-1 w-full py-8 px-4 lg:px-2 justify-center items-center">
       <nav className="p-2 w-full md:w-5/6 mx-auto flex flex-col justify-between md:flex-row items-center">
         <Link href="/">
-          <InteliBlockchain width={280} classname="" />
+          <InteliBlockchain width={280} className="" />
         </Link>
 
         <div className="flex montserrat font-semibold text-md items-center md:mt-0 mt-6 ">

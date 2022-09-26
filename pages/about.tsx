@@ -2,7 +2,12 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 
-const User = ({ id, name }) => {
+interface UserProps {
+  id: string;
+  name: string;
+}
+
+const User = ({ id, name }: UserProps) => {
   return (
     <Link
       href={`

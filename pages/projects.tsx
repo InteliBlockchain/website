@@ -2,7 +2,12 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 
-const Card = ({ title, desc = "" }) => {
+interface CardProps {
+  title: string;
+  desc?: string;
+}
+
+const Card = ({ title, desc = "" }: CardProps) => {
   return (
     <div className="rounded-lg border px-4 py-24 border-red-500 mt-4 md:mt-0 montserrat w-full">
       <div className="my-auto flex flex-col justify-between">
