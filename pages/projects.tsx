@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 
 const Card = ({ title, desc = "" }) => {
   return (
-    <div className="rounded-lg border px-4 py-24 border-red-500 mt-4 md:mt-0 montserrat">
+    <div className="rounded-lg border px-4 py-24 border-red-500 mt-4 md:mt-0 montserrat w-full">
       <div className="my-auto flex flex-col justify-between">
         <p className="font-bold text-2xl text-center">{title}</p>
 
@@ -42,7 +42,7 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 justify-items-center">
           {projects.map((project) => (
             <Card title={project.title} desc={project.description} />
           ))}

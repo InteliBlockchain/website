@@ -11,12 +11,12 @@ type Props = {
 const Header = ({ selectedPage }: Props) => {
   return (
     <header className="flex-1 w-full py-8 px-4 lg:px-2 justify-center items-center">
-      <nav className="p-2 justify-between w-full md:w-5/6 mx-auto flex flex-col md:flex-row items-center">
+      <nav className="p-2 w-full md:w-5/6 mx-auto flex flex-col justify-between md:flex-row items-center">
         <Link href="/">
-          <InteliBlockchain width={280} classname="w-full md:w-1/4" />
+          <InteliBlockchain width={280} classname="" />
         </Link>
 
-        <div className="w-full md:w-3/5 flex justify-evenly montserrat font-semibold text-md items-center md:mt-0 mt-6">
+        <div className="flex montserrat font-semibold text-md items-center md:mt-0 mt-6 ">
           <Link href="/">
             <a
               className={`${
@@ -33,7 +33,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Sobre nós"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
             >
               Sobre nós
             </a>
@@ -45,7 +45,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Projetos"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
             >
               Projetos
             </a>
@@ -57,7 +57,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Hackathon"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
             >
               Hackathon
             </a>
@@ -69,7 +69,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Contato"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
             >
               Contato
             </a>
