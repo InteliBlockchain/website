@@ -7,9 +7,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 body {
-  background-color: #d1d5d5;
+  background-color: #e2e2e2;
 }
 
 .montserrat {
   font-family: 'Montserrat', sans-serif;
+}
+
+.text-gradient {
+  font-family: 'Montserrat', sans-serif;
+  background: -webkit-linear-gradient(rgb(255,70,69), rgb(182,3,163));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient {
+  background: rgb(255,70,69);
+  background: -moz-linear-gradient(90deg, rgba(255,70,69,1) 0%, rgba(182,3,163,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(255,70,69,1) 0%, rgba(182,3,163,1) 100%);
+  background: linear-gradient(90deg, rgba(255,70,69,1) 0%, rgba(182,3,163,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff4645",endColorstr="#b603a3",GradientType=1);
 }

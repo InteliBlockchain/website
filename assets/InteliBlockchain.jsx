@@ -1,6 +1,6 @@
 import React from "react";
 
-function InteliBlockchain({ width = 220, classname = "" }) {
+function InteliBlockchain({ width = 220, className = "" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,9 +9,9 @@ function InteliBlockchain({ width = 220, classname = "" }) {
       height={(width * 9) / 110 || "18"}
       fill="none"
       viewBox="0 0 220 18"
-      className={classname}
+      className={className}
     >
-      <path fill="url(#pattern0)" d="M0 0H220V18H0z"></path>
+      <path fill="url(#pattern0)" d="M0 0H220V18H0z" className="mr-auto"></path>
       <defs>
         <pattern
           id="pattern0"

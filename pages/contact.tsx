@@ -1,11 +1,14 @@
 import Link from "next/link";
+import Header from "../components/Header";
 import Layout from "../components/Layout";
 
 const Contact = () => (
-  <Layout title="Inteli Blockchain - Contato">
-    <h1>Contact Page</h1>
+  <Layout title="Inteli Blockchain">
+    <Header selectedPage="Contato" />
+
+    <h1>Contact</h1>
     <p>
-      <Link href="/Contact">
+      <Link href="/about">
         <a>Contact</a>
       </Link>
     </p>
