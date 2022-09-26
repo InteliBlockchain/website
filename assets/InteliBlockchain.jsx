@@ -5,7 +5,7 @@ function InteliBlockchain({ width = 220 }) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width={width || "220"}
+      width={width}
       height={(width * 9) / 110 || "18"}
       fill="none"
       viewBox="0 0 220 18"
