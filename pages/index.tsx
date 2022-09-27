@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
+import Cube from "../components/Cube";
 
 const IndexPage = () => (
   <Layout title="Inteli Blockchain">
@@ -36,7 +37,8 @@ const IndexPage = () => (
       </div>
 
       {/* Div 2 - Image */}
-      <div className="md:w-1/4 lg:w-1/2 w-full mt-8 md:mt-0 flex items-center">
+      <div className="md:w-1/4 lg:w-1/2 w-full mt-8 md:mt-0">
+        <Cube />
       </div>
     </div>
   </Layout>
