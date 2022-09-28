@@ -3,14 +3,11 @@ const Footer = () => {
   const today = new Date(timeElapsed);
 
   return (
-    <footer
-      className="w-full fixed bottom-0 px-2 py-4 rounded-t-lg mx-auto text-end bg
-     shadow-lg
-    "
-    >
-      {/* <hr /> */}
-
-      <span>© Inteli Blockchain - {today.toDateString()}</span>
+    <footer className="w-full md:fixed md:bottom-0 px-2 py-4 rounded-t-lg mx-auto text-end bg shadow-lg border-t-gray-400 text-sm">
+      <span>
+        Copyright © {today.getUTCFullYear()} Inteli Blockchain. All rights
+        reserved.
+      </span>
     </footer>
   );
 };

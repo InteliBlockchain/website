@@ -4,19 +4,21 @@ import Image from "next/image";
 import InteliBlockchain from "../assets/InteliBlockchain.jsx";
 // import { motion } from "framer-motion"
 
-type Props = {
+type HeaderProps = {
   selectedPage?: string;
 };
 
-const Header = ({ selectedPage }: Props) => {
+const Header = ({ selectedPage }: HeaderProps) => {
   return (
-    <header className="flex-1 w-full py-8 px-4 lg:px-2 justify-center items-center">
+    <header className="flex-1 w-full py-4 lg:px-2 justify-center items-center fixed top-0 z-10 bg shadow-md">
       <nav className="p-2 w-full md:w-5/6 mx-auto flex flex-col justify-between md:flex-row items-center">
         <Link href="/">
-          <InteliBlockchain width={280} />
+          <a>
+            <InteliBlockchain width={320} />
+          </a>
         </Link>
 
-        <div className="flex montserrat font-semibold text-md items-center md:mt-0 mt-6 ">
+        <div className="flex montserrat font-semibold text-md items-center md:mt-0 mt-6 text-sm md:text-lg">
           <Link href="/">
             <a
               className={`${
@@ -33,7 +35,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Sobre nós"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
               Sobre nós
             </a>
@@ -45,7 +47,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Projetos"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
               Projetos
             </a>
@@ -57,7 +59,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Hackathon"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
               Hackathon
             </a>
@@ -69,7 +71,7 @@ const Header = ({ selectedPage }: Props) => {
                 selectedPage == "Contato"
                   ? "border-b-orange-400 border-b-2"
                   : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4`}
+              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
               Contato
             </a>
