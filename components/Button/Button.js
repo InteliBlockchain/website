@@ -4,7 +4,7 @@ import { Shapes } from "./Shapes";
 import { transition } from "./settings";
 import useMeasure from "react-use-measure";
 
-export default function Button() {
+export default function Button(className) {
   const [ref, bounds] = useMeasure({ scroll: false });
   const [isHover, setIsHover] = useState(false);
   const [isPress, setIsPress] = useState(false);
@@ -19,7 +19,7 @@ export default function Button() {
   return (
     <MotionConfig transition={transition}>
       <motion.button
-        className="button text-lg m-0 cursor-default"
+        className={className + " button text-lg m-0 cursor-default"}
         ref={ref}
         initial={false}
         animate={isHover ? "hover" : "rest"}

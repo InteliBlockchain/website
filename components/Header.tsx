@@ -53,15 +53,15 @@ const Header = ({ selectedPage }: HeaderProps) => {
             </a>
           </Link>
 
-          <Link href="/hackathon">
+          <Link href="/processo-seletivo">
             <a
               className={`${
-                selectedPage == "Hackathon"
+                selectedPage == "processo-seletivo"
                   ? "border-b-orange-400 border-b-2"
                   : ""
               } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
-              Hackathon
+              Processo seletivo
             </a>
           </Link>
 

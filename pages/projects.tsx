@@ -58,7 +58,7 @@ const Projects = () => {
     <Layout title="Inteli Blockchain">
       <Header selectedPage="Projetos" />
 
-      <div className="flex flex-col p-2 mb-8 w-full lg:w-5/6 mx-auto">
+      <div className="flex flex-col pt-8 p-2 mb-8 w-full lg:w-5/6 mx-auto">
         <div className="text-6xl md:text-7xl md:mb-8 p-0 mb-4">
           <p className="montserrat text-gradient font-bold text-left">
             Projetos

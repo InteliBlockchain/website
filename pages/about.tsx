@@ -50,7 +50,7 @@ const About = () => {
 
       <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto">
         {/* Div 1 - Text */}
-        <div className="justify-center md:pt-64 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
+        <div className="justify-center pt-8 md:pt-64 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
           <div className="text-6xl md:text-8xl md:mx-6 md:my-2 items-center">
             <p className="font-bold text-zinc-800 montserrat text-left">
               Sobre{" "}
