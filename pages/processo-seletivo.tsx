@@ -20,6 +20,7 @@ type dataModel = {
 const SelectiveProcess = () => {
   const { register, handleSubmit } = useForm<dataModel>();
   const [data, setData] = useState("");
+  const [buttonText, setButtonText] = useState("Enviar");
 
   const [disable, setDisabled] = useState(false);
 
@@ -54,6 +55,7 @@ const SelectiveProcess = () => {
 
   const onSubmit = async (data: dataModel) => {
     setDisabled(true);
+    setButtonText("Enviando...");
 
     // checks if email is already registered
     const registeredSubs = await loadSubscriptions();
@@ -90,6 +92,7 @@ const SelectiveProcess = () => {
       console.log(response.data);
       alertService.success("Inscrição realizada com sucesso!", options);
       setDisabled(false);
+      setButtonText("Enviar")
     } catch (err) {
       alertService.warn(
         `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err}`,
@@ -222,11 +225,11 @@ const SelectiveProcess = () => {
             <div className="flex flex-col items-center">
               <button
                 className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
-                  disable ? "cursor-not-allowed bg-grey-500" : "bg-gradient"
+                  disable ? "cursor-not-allowed bg-red-600 text-white" : "bg-gradient"
                 }`}
                 disabled={disable}
               >
-                <input type="submit" value="Enviar" />
+                <input type="submit" value={buttonText} />
               </button>
             </div>
           </form>
