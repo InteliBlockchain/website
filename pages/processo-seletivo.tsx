@@ -25,7 +25,7 @@ const SelectiveProcess = () => {
   const [disable, setDisabled] = useState(false);
 
   const loadSubscriptions = async () => {
-    const response = await axios.get(`${process.env.BASE_URL}/subs/get`);
+    const response = await axios.get(`https://inteliblockchainserver.herokuapp.com/subs/get`);
 
     setDisabled(false);
     return response.data;
@@ -66,7 +66,7 @@ const SelectiveProcess = () => {
     }
 
     try {
-      const response = await axios.post(`${process.env.BASE_URL}/subs/add`, {
+      const response = await axios.post(`https://inteliblockchainserver.herokuapp.com/subs/add`, {
         name: data.name,
         email: data.email,
         bornDate: data.bornDate,
