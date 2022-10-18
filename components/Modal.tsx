@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 
-const Modal = (isOpened: boolean) => {
+const Modal = (isOpened: { isOpened: boolean }) => {
   const [email, setEmail] = useState("");
+
+  console.log(isOpened.isOpened);
 
   const onSubmit = async (email: string) => {
     if (!email) {
@@ -12,7 +14,8 @@ const Modal = (isOpened: boolean) => {
 
     try {
       const response = await axios.post(
-        'https://blockchain-api-inteli.herokuapp.com/Subscription/sendConfirmationEmail', {
+        "https://blockchain-api-inteli.herokuapp.com/Subscription/sendConfirmationEmail",
+        {
           email: email,
         }
       );
@@ -23,22 +26,33 @@ const Modal = (isOpened: boolean) => {
     }
   };
 
-  return isOpened ? (
+  return isOpened.isOpened ? (
     <div className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="modal-content bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6">
+      <div className="modal-content bg-white w-11/12 md:max-w-4xl md:max-h-4xl mx-auto rounded shadow-lg py-8 text-left px-6">
         <p className="modal-header">
-          <p className="text-2xl font-bold mb-8">
-            <span className="close mr-2">&times;</span>
+          <p className="text-3xl font-bold mb-8">
             Inscreva-se no Processo Seletivo
           </p>
         </p>
         <div className="modal-body">
-          <p className="text-lg text-gray-700 mb-4">
+          <div className="text-3xl md:text-5xl lg:text-6xl md:my-2 items-center mb-2">
+            <p className="font-bold text-zinc-800 montserrat text-left">
+              Participe do nosso{" "}
+              <p className="montserrat text-gradient font-bold">
+                Processo seletivo!
+              </p>
+            </p>
+            <p className="montserrat text-lg text-zinc-800">
+              É a sua chance de aprender mais sobre o mundo da tecnologia
+              Blockchain e participar dos projetos do clube!
+            </p>
+          </div>
+          <p className="text-xl text-gray-700 mb-4">
             Insira o seu email e receberá um email de confirmação para ir para a
             próxima etapa do Processo Seletivo.
           </p>
 
-          <p className="font-semibold text-lg text-gradient">Seu email:</p>
+          <p className="font-semibold text-xl text-gradient">Seu email:</p>
 
           <input
             type="email"

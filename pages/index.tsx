@@ -9,7 +9,7 @@ import Modal from "../components/Modal";
 import axios from "axios";
 
 const IndexPage = () => {
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
@@ -20,7 +20,7 @@ const IndexPage = () => {
         <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto ">
           {/* Div 1 - Text */}
           <div className="md:w-3/4 lg:w-1/2 w-full justify-center py-8 mb-2 md:pt-16">
-            <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center border">
+            <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
               <p className="font-bold text-zinc-800 montserrat text-left">
                 Participe do nosso{" "}
                 <p className="montserrat text-gradient font-bold">
