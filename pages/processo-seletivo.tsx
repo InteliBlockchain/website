@@ -77,21 +77,21 @@ const SelectiveProcess = () => {
 
     console.log({
       name: data.name,
-      email: data.email,
+      email: router.query.email,
       bornDate: data.bornDate,
       github: data.github,
       linkedin: data.linkedin,
       skills: data.skills,
       why: data.why,
       about: data.about,
-    })
+    });
 
     try {
       const response = await axios.post(
         `https://blockchain-api-inteli.herokuapp.com/Subscription/continue`,
         {
           name: data.name,
-          email: data.email,
+          email: router.query.email,
           bornDate: data.bornDate,
           github: data.github,
           linkedin: data.linkedin,
@@ -104,11 +104,16 @@ const SelectiveProcess = () => {
 
       console.log(response.data);
       alertService.success("Inscrição realizada com sucesso!", options);
-      setDisabled(false);
-      setButtonText("Enviar");
+      setTimeout(() => {
+        router.push("/");
+        alert(
+          "Parabéns! Sua inscrição foi realizada com sucesso. Em breve entraremos em contato."
+        );
+      }, 1500);
     } catch (err) {
+      console.log(err);
       alertService.warn(
-        `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err}`,
+        `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err.data}`,
         options
       );
       setDisabled(false);
@@ -164,14 +169,18 @@ const SelectiveProcess = () => {
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             />
 
-            <p className="font-semibold text-lg text-gradient">Email: *</p>
+            {/* <p className="font-semibold text-lg text-gradient">Email: *</p> */}
             {/* {errors?.email && <p className="text-sm text-red-700">{errors.email.message}</p>} */}
-            <input
+            {/* <input
               type="email"
               placeholder="Email"
+              value={
+                router.query.email ? router.query.email.toString() : undefined
+              }
+              disabled={true}
               {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-            />
+            /> */}
 
             <p className="font-semibold text-lg text-gradient">
               Data de nascimento: *
