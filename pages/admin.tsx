@@ -6,11 +6,13 @@ import Layout from "../components/Layout";
 import Github from "../assets/Github";
 import Linkedin from "../assets/Linkedin";
 
+// require('dotenv').config()
+
 const Admin = () => {
   const [data, setData] = useState([]);
 
   const loadSubscriptions = async () => {
-    const response = await axios.get("http://localhost:5500/subs/get");
+    const response = await axios.get(`https://inteliblockchainserver.herokuapp.com/subs/get`);
     return response.data;
   };
 
@@ -31,14 +33,12 @@ const Admin = () => {
   };
 
   const deleteSub = async (id: string) => {
-    await axios.delete(`http://localhost:5500/subs/delete/${id}`);
+    await axios.delete(`https://inteliblockchainserver.herokuapp.com/subs/delete/${id}`);
     onReload();
   };
 
   return (
-    <Layout title="Inteli Blockchain" hide={true}>
-      <Header />
-
+    <Layout>
       <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto">
         {/* Div 1 - Text */}
         <div className="justify-center pt-8 md:pt-64 md:fixed w-full md:w-1/2 lg:w-1/2 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
@@ -93,30 +93,35 @@ const Admin = () => {
                     </a>
                   
 
+                   <a>
+                     <button
+                       className="text-md mb-2 bg-red-600 text-white font-bold p-2 rounded-md"
+                     onClick={() => {
+                       deleteSub(sub.email);
+                      }}
+                     >
+                       Deletar
+                     </button>
+                   </a>
+
                   <p className="text-md text-zinc-800 mb-2">
-                    Data de nascimento: {sub.bornDate} |{" "}
-                    {new Date().getFullYear() -
+                     Data de nascimento: {sub.bornDate} |{" "}
+                     {new Date().getFullYear() -
                       new Date(sub.bornDate).getFullYear()}{" "}
-                    anos
-                  </p>
+                     anos
+                   </p>
 
                   <p className="text-md text-zinc-800 mb-2">
                     Habilidades:
                     <br />
                     {sub.skills}
-                  </p>
+                   </p>
 
                   <p className="text-md text-zinc-800 mb-2">
                     Por que quer participar do clube?
                     <br />
-                    {sub.why}
-                  </p>
-
-                  <p className="text-md text-zinc-800 mb-2">
-                    Sobre você:
-                    <br />
-                    {sub.about}
-                  </p>
+                     {sub.why}
+                   </p>
 
                   <div className="text-md text-zinc-800 flex flex-row">
                     <a href={sub.github} target="_blank" className="mr-4">

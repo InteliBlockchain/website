@@ -2,11 +2,7 @@ import React, { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import InteliBlockchain from "../assets/InteliBlockchain.jsx";
-// import { motion } from "framer-motion"
-
-type HeaderProps = {
-  selectedPage?: string;
-};
+import { HeaderProps } from "../interfaces/index.js";
 
 const Header = ({ selectedPage }: HeaderProps) => {
   return (
@@ -53,7 +49,7 @@ const Header = ({ selectedPage }: HeaderProps) => {
             </a>
           </Link>
 
-          <Link href="/processo-seletivo">
+          {/* <Link href="/processo-seletivo">
             <a
               className={`${
                 selectedPage == "processo-seletivo"
@@ -63,7 +59,7 @@ const Header = ({ selectedPage }: HeaderProps) => {
             >
               Processo seletivo
             </a>
-          </Link>
+          </Link> */}
 
           <Link href="/contact">
             <a
