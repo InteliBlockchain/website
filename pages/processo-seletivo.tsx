@@ -3,61 +3,104 @@ import { useEffect, useState } from "react";
 import { useForm, Resolver } from "react-hook-form";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
+import { Alert } from "../components/Alert";
+import { alertService } from "../services/alert.service";
 
-type FormValues = {
+type dataModel = {
   name: string;
   email: string;
   bornDate: string;
-  github: string;
+  github?: string;
   linkedin?: string;
+  skills: string;
+  why: string;
+  about: string;
 };
 
 const SelectiveProcess = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<dataModel>();
   const [data, setData] = useState("");
-
-  // const onSubmit = (data: any) => console.log(data);
-  const onSubmit = (data: any) => {
-    onSubmitForm(data);
-  };
 
   const [disable, setDisabled] = useState(false);
 
   const loadSubscriptions = async () => {
     const response = await axios.get("http://localhost:5500/subs/get");
-    
+
     setDisabled(false);
     return response.data;
   };
 
-  const onSubmitForm = async (data: any) => {
-    setDisabled(true);
-    // first check if the email is already registered
-    const registeredSubs = await loadSubscriptions();
+  const [options, setOptions] = useState({
+    autoClose: false,
+    keepAfterRouteChange: false,
+  });
 
+  function handleOptionChange(e: any) {
+    const { name, checked } = e.target;
+    setOptions((options) => ({ ...options, [name]: checked }));
+  }
+
+  // <button
+  //     className="bg-gradient-to-r from-zinc-500 to-zinc-700 text-white font-bold py-2 px-4 rounded-full"
+  //     onClick={() =>
+  //       alertService.error(
+  //         "Esse email já está cadastrado! Aguarde o nosso contato.",
+  //         options
+  //       )
+  //     }
+  //   >
+  //     Error
+  //   </button>
+
+  const onSubmit = async (data: dataModel) => {
+    setDisabled(true);
+    
+    // checks if email is already registered
+    const registeredSubs = await loadSubscriptions();
     const isRegistered = registeredSubs.find(
-      (sub: any) => sub.email === data.email
+      (sub: dataModel) => sub.email === data.email
     );
 
     if (isRegistered) {
-      alert("Email já cadastrado");
+      alertService.error(
+        "Esse email já está cadastrado! Aguarde o nosso contato.",
+        options
+      );
+      return;
+    }
+    
+    // checks if the data is valid
+    if (!data) {
+      alertService.warn("Preencha todos os campos!", options);
       return;
     }
 
-    const response = await axios.post("http://localhost:5500/subs/add", {
-      name: data.name,
-      email: data.email,
-      bornDate: data.bornDate,
-      github: data.github,
-      linkedin: data.linkedin,
-    });
-    console.log(response.data);
-    setDisabled(false);
+    try {
+      const response = await axios.post("http://localhost:5321312500/subs/add", {
+        name: data.name,
+        email: data.email,
+        bornDate: data.bornDate,
+        github: data.github,
+        linkedin: data.linkedin,
+        skills: data.skills,
+        why: data.why,
+        about: data.about,
+      });
+
+      console.log(response.data);
+      alertService.success("Inscrição realizada com sucesso!", options);
+      setDisabled(false);
+    } catch (err) {
+      alertService.warn(
+        `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err}`,
+        options);
+    }
   };
 
   return (
     <Layout title="Inteli Blockchain">
       <Header selectedPage="processo-seletivo" />
+      <Alert />
 
       <div className="flex flex-col md:flex-row py-2 justify-around mb-8 w-full lg:w-5/6 mx-auto">
         {/* Div 1 - Text */}
@@ -82,7 +125,7 @@ const SelectiveProcess = () => {
 
         {/* Div 2 - Form */}
         <div className="md:justify-items-center md:pt-8 md:absolute md:right-8 lg:right-32 mx-2 md:mx-0 montserrat md:w-5/12">
-          <div className="text-6xl md:text-7xl md:mx-4 md:my-2 items-center">
+          <div className="text-5xl md:text-7xl md:mx-4 md:my-2 items-center">
             <p className="font-bold text-zinc-800 montserrat text-left">
               Realize sua inscrição
             </p>
@@ -127,13 +170,13 @@ const SelectiveProcess = () => {
             />
 
             <p className="font-semibold text-lg text-gradient">
-              Link do seu Github: *
+              Link do seu Github:
             </p>
             {/* {errors?.github && <p className="text-sm text-red-700">{errors.github.message}</p>} */}
             <input
               type="text"
               placeholder="Seu github"
-              {...register("github", { required: true })}
+              {...register("github", { required: false })}
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             />
 
@@ -144,12 +187,42 @@ const SelectiveProcess = () => {
               type="text"
               placeholder="Seu linkedin"
               {...register("linkedin", { required: false })}
-              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-16"
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
+
+            <p className="font-semibold text-lg text-gradient">
+              Quais habilidades você gostaria de destacar? (técnicas ou não) *
+            </p>
+            <textarea
+              placeholder="Habilidades"
+              {...register("skills", { required: true })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
+
+            <p className="font-semibold text-lg text-gradient">
+              Por que deseja entrar no grupo? *
+            </p>
+            <textarea
+              placeholder="Por que deseja entrar no grupo?"
+              {...register("why", { required: true })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
+
+            <p className="font-semibold text-lg text-gradient">
+              Conte um pouco de você. Como você chegou até o Inteli? O que você
+              pretende realizar estudando aqui?... *
+            </p>
+            <textarea
+              placeholder="Conte um pouco de você. Como você chegou até o Inteli? O que você pretende realizar estudando aqui?..."
+              {...register("about", { required: true })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             />
 
             <div className="flex flex-col items-center">
               <button
-                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 ${disable ? "cursor-not-allowed bg-grey-500" : "bg-gradient"}`}
+                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
+                  disable ? "cursor-not-allowed bg-grey-500" : "bg-gradient"
+                }`}
                 disabled={disable}
               >
                 <input type="submit" value="Enviar" />
