@@ -12,7 +12,7 @@ const Admin = () => {
   const [data, setData] = useState([]);
 
   const loadSubscriptions = async () => {
-    const response = await axios.get(process.env.BASE_URL + "/subs/get");
+    const response = await axios.get(`${process.env.BASE_URL}/subs/get`);
     return response.data;
   };
 
@@ -33,7 +33,7 @@ const Admin = () => {
   };
 
   const deleteSub = async (id: string) => {
-    await axios.delete(process.env.BASE_URL + `/subs/delete/${id}`);
+    await axios.delete(`${process.env.BASE_URL}/subs/delete/${id}`);
     onReload();
   };
 

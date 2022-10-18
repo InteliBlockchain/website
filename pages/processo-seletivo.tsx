@@ -25,7 +25,7 @@ const SelectiveProcess = () => {
   const [disable, setDisabled] = useState(false);
 
   const loadSubscriptions = async () => {
-    const response = await axios.get(process.env.BASE_URL + "/subs/get");
+    const response = await axios.get(`${process.env.BASE_URL}/subs/get`);
 
     setDisabled(false);
     return response.data;
@@ -40,18 +40,6 @@ const SelectiveProcess = () => {
     const { name, checked } = e.target;
     setOptions((options) => ({ ...options, [name]: checked }));
   }
-
-  // <button
-  //     className="bg-gradient-to-r from-zinc-500 to-zinc-700 text-white font-bold py-2 px-4 rounded-full"
-  //     onClick={() =>
-  //       alertService.error(
-  //         "Esse email já está cadastrado! Aguarde o nosso contato.",
-  //         options
-  //       )
-  //     }
-  //   >
-  //     Error
-  //   </button>
 
   const onSubmit = async (data: dataModel) => {
     setDisabled(true);
@@ -78,7 +66,7 @@ const SelectiveProcess = () => {
     }
 
     try {
-      const response = await axios.post(process.env.BASE_URL + "/subs/add", {
+      const response = await axios.post(`${process.env.BASE_URL}/subs/add`, {
         name: data.name,
         email: data.email,
         bornDate: data.bornDate,
@@ -98,6 +86,8 @@ const SelectiveProcess = () => {
         `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err}`,
         options
       );
+      setDisabled(false);
+      setButtonText("Enviar")
     }
   };
 
