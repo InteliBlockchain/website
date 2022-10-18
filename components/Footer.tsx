@@ -1,8 +1,6 @@
-interface Props {
-  hide: boolean;
-}
+import { FooterProps } from "../interfaces";
 
-const Footer = (hide: Props) => {
+const Footer = (hide: FooterProps) => {
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 

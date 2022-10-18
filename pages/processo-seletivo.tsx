@@ -6,17 +6,7 @@ import Layout from "../components/Layout";
 import { Alert } from "../components/Alert";
 import { alertService } from "../services/alert.service";
 import { useRouter } from "next/router";
-
-type dataModel = {
-  name: string;
-  email: string;
-  bornDate: string;
-  github?: string;
-  linkedin?: string;
-  skills: string;
-  why: string;
-  about: string;
-};
+import { dataModel } from "../interfaces";
 
 const SelectiveProcess = () => {
   const { register, handleSubmit } = useForm<dataModel>();
@@ -37,35 +27,29 @@ const SelectiveProcess = () => {
     setOptions((options) => ({ ...options, [name]: checked }));
   }
 
-  const onSubmit = async (data: dataModel) => {
+  const validateToken = async () => {
     let urlToken = router.query.token;
     let urlEmail = router.query.email;
 
-    console.log(urlToken + " " + urlEmail);
+    const res = await axios.post(
+      "https://blockchain-api-inteli.herokuapp.com/Subscription/token",
+      {
+        token: urlToken,
+        email: urlEmail,
+      }
+    );
 
-    try {
-      axios
-        .post(
-          "https://blockchain-api-inteli.herokuapp.com/Subscription/token",
-          {
-            token: urlToken,
-            email: urlEmail,
-          }
-        )
-        .then((res) => {
-          if (res.data.validation) {
-            console.log("Token válido");
-          } else {
-            alert("Token inválido");
-            setTimeout(() => {
-              router.push("/");
-            }, 2000);
-          }
-        });
-    } catch (err) {
+    console.log(res);
+
+    if (res.data.validation) {
+      alert("Token inválido");
       router.push("/");
-    }
+    } else console.log("Token válido");
+  };
 
+  validateToken();
+
+  const onSubmit = async (data: dataModel) => {
     setDisabled(true);
     setButtonText("Enviando...");
 

@@ -1,11 +1,7 @@
 import Link from "next/link";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
-
-interface UserProps {
-  id: string;
-  name: string;
-}
+import { UserProps } from "../interfaces";
 
 const User = ({ id, name }: UserProps) => {
   return (
