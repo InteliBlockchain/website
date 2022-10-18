@@ -53,7 +53,7 @@ const Header = ({ selectedPage }: HeaderProps) => {
             </a>
           </Link>
 
-          <Link href="/processo-seletivo">
+          {/* <Link href="/processo-seletivo">
             <a
               className={`${
                 selectedPage == "processo-seletivo"
@@ -63,7 +63,7 @@ const Header = ({ selectedPage }: HeaderProps) => {
             >
               Processo seletivo
             </a>
-          </Link>
+          </Link> */}
 
           <Link href="/contact">
             <a

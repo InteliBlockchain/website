@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Layout from "../components/Layout";
 import { Alert } from "../components/Alert";
 import { alertService } from "../services/alert.service";
+import { useRouter } from "next/router";
 
 type dataModel = {
   name: string;
@@ -22,14 +23,9 @@ const SelectiveProcess = () => {
   const [data, setData] = useState("");
   const [buttonText, setButtonText] = useState("Enviar");
 
+  const router = useRouter();
+
   const [disable, setDisabled] = useState(false);
-
-  const loadSubscriptions = async () => {
-    const response = await axios.get(`https://inteliblockchainserver.herokuapp.com/subs/get`);
-
-    setDisabled(false);
-    return response.data;
-  };
 
   const [options, setOptions] = useState({
     autoClose: false,
@@ -42,22 +38,36 @@ const SelectiveProcess = () => {
   }
 
   const onSubmit = async (data: dataModel) => {
+    let urlToken = router.query.token;
+    let urlEmail = router.query.email;
+
+    console.log(urlToken + " " + urlEmail);
+
+    try {
+      axios
+        .post(
+          "https://blockchain-api-inteli.herokuapp.com/Subscription/token",
+          {
+            token: urlToken,
+            email: urlEmail,
+          }
+        )
+        .then((res) => {
+          if (res.data.validation) {
+            console.log("Token válido");
+          } else {
+            alert("Token inválido");
+            setTimeout(() => {
+              router.push("/");
+            }, 2000);
+          }
+        });
+    } catch (err) {
+      router.push("/");
+    }
+
     setDisabled(true);
     setButtonText("Enviando...");
-
-    // checks if email is already registered
-    const registeredSubs = await loadSubscriptions();
-    const isRegistered = registeredSubs.find(
-      (sub: dataModel) => sub.email === data.email
-    );
-
-    if (isRegistered) {
-      alertService.error(
-        "Esse email já está cadastrado! Aguarde o nosso contato.",
-        options
-      );
-      return;
-    }
 
     // checks if the data is valid
     if (!data) {
@@ -65,29 +75,44 @@ const SelectiveProcess = () => {
       return;
     }
 
+    console.log({
+      name: data.name,
+      email: data.email,
+      bornDate: data.bornDate,
+      github: data.github,
+      linkedin: data.linkedin,
+      skills: data.skills,
+      why: data.why,
+      about: data.about,
+    })
+
     try {
-      const response = await axios.post(`https://inteliblockchainserver.herokuapp.com/subs/add`, {
-        name: data.name,
-        email: data.email,
-        bornDate: data.bornDate,
-        github: data.github,
-        linkedin: data.linkedin,
-        skills: data.skills,
-        why: data.why,
-        about: data.about,
-      });
+      const response = await axios.post(
+        `https://blockchain-api-inteli.herokuapp.com/Subscription/continue`,
+        {
+          name: data.name,
+          email: data.email,
+          bornDate: data.bornDate,
+          github: data.github,
+          linkedin: data.linkedin,
+          skills: data.skills,
+          why: data.why,
+          about: data.about,
+          token: router.query.token,
+        }
+      );
 
       console.log(response.data);
       alertService.success("Inscrição realizada com sucesso!", options);
       setDisabled(false);
-      setButtonText("Enviar")
+      setButtonText("Enviar");
     } catch (err) {
       alertService.warn(
         `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err}`,
         options
       );
       setDisabled(false);
-      setButtonText("Enviar")
+      setButtonText("Enviar");
     }
   };
 
@@ -215,7 +240,9 @@ const SelectiveProcess = () => {
             <div className="flex flex-col items-center">
               <button
                 className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
-                  disable ? "cursor-not-allowed bg-red-600 text-white" : "bg-gradient"
+                  disable
+                    ? "cursor-not-allowed bg-red-600 text-white"
+                    : "bg-gradient"
                 }`}
                 disabled={disable}
               >
