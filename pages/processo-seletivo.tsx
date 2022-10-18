@@ -24,7 +24,7 @@ const SelectiveProcess = () => {
   const [disable, setDisabled] = useState(false);
 
   const loadSubscriptions = async () => {
-    const response = await axios.get("http://localhost:5500/subs/get");
+    const response = await axios.get(process.env.BASE_URL + "/subs/get");
 
     setDisabled(false);
     return response.data;
@@ -54,7 +54,7 @@ const SelectiveProcess = () => {
 
   const onSubmit = async (data: dataModel) => {
     setDisabled(true);
-    
+
     // checks if email is already registered
     const registeredSubs = await loadSubscriptions();
     const isRegistered = registeredSubs.find(
@@ -68,7 +68,7 @@ const SelectiveProcess = () => {
       );
       return;
     }
-    
+
     // checks if the data is valid
     if (!data) {
       alertService.warn("Preencha todos os campos!", options);
@@ -76,7 +76,7 @@ const SelectiveProcess = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5321312500/subs/add", {
+      const response = await axios.post(process.env.BASE_URL + "/subs/add", {
         name: data.name,
         email: data.email,
         bornDate: data.bornDate,
@@ -93,7 +93,8 @@ const SelectiveProcess = () => {
     } catch (err) {
       alertService.warn(
         `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err}`,
-        options);
+        options
+      );
     }
   };
 

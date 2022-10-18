@@ -6,11 +6,13 @@ import Layout from "../components/Layout";
 import Github from "../assets/Github";
 import Linkedin from "../assets/Linkedin";
 
+require('dotenv').config()
+
 const Admin = () => {
   const [data, setData] = useState([]);
 
   const loadSubscriptions = async () => {
-    const response = await axios.get("http://localhost:5500/subs/get");
+    const response = await axios.get(process.env.BASE_URL + "/subs/get");
     return response.data;
   };
 
@@ -31,7 +33,7 @@ const Admin = () => {
   };
 
   const deleteSub = async (id: string) => {
-    await axios.delete(`http://localhost:5500/subs/delete/${id}`);
+    await axios.delete(process.env.BASE_URL + `/subs/delete/${id}`);
     onReload();
   };
 
