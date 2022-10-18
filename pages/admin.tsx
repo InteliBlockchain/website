@@ -6,7 +6,7 @@ import Layout from "../components/Layout";
 import Github from "../assets/Github";
 import Linkedin from "../assets/Linkedin";
 
-require('dotenv').config()
+// require('dotenv').config()
 
 const Admin = () => {
   const [data, setData] = useState([]);
