@@ -1,15 +1,12 @@
-import Link from "next/link";
-import Image from "next/image";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 import Button from "../components/Button/Button";
 import Cube from "../components/Cube";
 import { useState } from "react";
 import Modal from "../components/Modal";
-import axios from "axios";
 
 const IndexPage = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   return (
     <>
@@ -21,12 +18,12 @@ const IndexPage = () => {
           {/* Div 1 - Text */}
           <div className="md:w-3/4 lg:w-1/2 w-full justify-center py-8 mb-2 md:pt-16">
             <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
-              <p className="font-bold text-zinc-800 montserrat text-left">
-                Participe do nosso{" "}
-                <p className="montserrat text-gradient font-bold">
+              <div>
+                <p className="font-bold text-zinc-800 montserrat text-left">Participe do nosso{" "}</p>
+                <span className="montserrat text-gradient font-bold">
                   Processo seletivo!
-                </p>
-              </p>
+                </span>
+              </div>
             </div>
 
             <div className="text-6xl md:text-7xl md:mx-6 items-center md:w-1/2 my-8">
@@ -37,14 +34,13 @@ const IndexPage = () => {
             </div>
 
             <div className=" md:mx-6 md:my-2 justify-center md:justify-start flex mt-2">
-              <button
-                className="cursor-default"
-                onClick={() => setModalVisible(!modalVisible)}
+              <div
+                className="cursor-pointer"
               >
-                <a className="cursor-default">
-                  <Button />
-                </a>
-              </button>
+                <Button onClick={
+                  () => setModalVisible(!modalVisible)
+                } className={""} />
+              </div>
             </div>
           </div>
 
