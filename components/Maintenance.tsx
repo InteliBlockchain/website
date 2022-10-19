@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Layout from "./Layout";
+import Image from "next/image";
+import MaintenanceIcon from "../assets/optimize.png";
 
 const Maintenance = () => {
   return (
@@ -12,6 +14,7 @@ const Maintenance = () => {
           Estamos trabalhando para melhorar a experiência de vocês. Volte em
           breve!
         </p>
+        <Image src={MaintenanceIcon} alt="Em manutenção" className="mt-8" />
       </div>
     </Layout>
   );

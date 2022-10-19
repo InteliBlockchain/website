@@ -3,6 +3,8 @@ import React from "react";
 import "../styles/index.css";
 import "../styles/globals.css";
 
+require("dotenv").config();
+
 import Maintenance from "../components/Maintenance";
 
 const MyApp = ({ Component, pageProps }) => {

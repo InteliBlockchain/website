@@ -9,45 +9,49 @@ import { useRouter } from "next/router";
 import { dataModel } from "../interfaces";
 
 const SelectiveProcess = () => {
+  const router = useRouter();
+
   const { register, handleSubmit } = useForm<dataModel>();
   const [data, setData] = useState("");
   const [buttonText, setButtonText] = useState("Enviar");
-
-  const router = useRouter();
-
   const [disable, setDisabled] = useState(false);
-
   const [options, setOptions] = useState({
-    autoClose: false,
+    autoClose: true,
     keepAfterRouteChange: false,
   });
-
-  function handleOptionChange(e: any) {
-    const { name, checked } = e.target;
-    setOptions((options) => ({ ...options, [name]: checked }));
-  }
 
   const validateToken = async () => {
     let urlToken = router.query.token;
     let urlEmail = router.query.email;
 
-    const res = await axios.post(
-      "https://blockchain-api-inteli.herokuapp.com/Subscription/token",
-      {
-        token: urlToken,
-        email: urlEmail,
-      }
-    );
+    const res = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/Token`, {
+      token: urlToken,
+      email: urlEmail,
+    });
 
-    console.log(res);
+    console.log(urlToken, urlEmail, res.data);
 
-    if (res.data.validation) {
-      alert("Token inválido");
-      router.push("/");
-    } else console.log("Token válido");
+    if (!res.data.validation) {
+      alertService.error(
+        "Token inválido! Você pode ter clicado em algum dos links recebidos anteriormente e por isso não pudemos validar! Verifique se não há nenhum email nosso mais recente.",
+        options
+      );
+      setTimeout(() => {
+        router.push("/");
+      }, 2500);
+      return false;
+    } else {
+      alertService.success(
+        "Token válido! Preencha o formulário abaixo.",
+        options
+      );
+      return true;
+    }
   };
 
-  validateToken();
+  setTimeout(() => {
+    validateToken();
+  }, 1500);
 
   const onSubmit = async (data: dataModel) => {
     setDisabled(true);
@@ -56,48 +60,47 @@ const SelectiveProcess = () => {
     // checks if the data is valid
     if (!data) {
       alertService.warn("Preencha todos os campos!", options);
+      setDisabled(false);
+      setButtonText("Enviar");
       return;
     }
 
-    console.log({
-      name: data.name,
-      email: router.query.email,
-      bornDate: data.bornDate,
-      github: data.github,
-      linkedin: data.linkedin,
-      skills: data.skills,
-      why: data.why,
-      about: data.about,
-    });
+    // console.log({
+    //   name: data.name,
+    //   email: router.query.email,
+    //   bornDate: data.bornDate,
+    //   github: data.github,
+    //   linkedin: data.linkedin,
+    //   skills: data.skills,
+    //   why: data.why,
+    //   about: data.about,
+    // });
 
     try {
-      const response = await axios.post(
-        `https://blockchain-api-inteli.herokuapp.com/Subscription/continue`,
-        {
-          name: data.name,
-          email: router.query.email,
-          bornDate: data.bornDate,
-          github: data.github,
-          linkedin: data.linkedin,
-          skills: data.skills,
-          why: data.why,
-          about: data.about,
-          token: router.query.token,
-        }
-      );
+      const response = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/continue`, {
+        name: data.name,
+        email: router.query.email,
+        bornDate: data.bornDate,
+        github: data.github,
+        linkedin: data.linkedin,
+        skills: data.skills,
+        why: data.why,
+        about: data.about,
+        token: router.query.token,
+      });
 
-      console.log(response.data);
-      alertService.success("Inscrição realizada com sucesso!", options);
+      alertService.success(
+        "Inscrição realizada com sucesso! Redirecionando...",
+        options
+      );
       setTimeout(() => {
         router.push("/");
-        alert(
-          "Parabéns! Sua inscrição foi realizada com sucesso. Em breve entraremos em contato."
-        );
       }, 1500);
     } catch (err) {
-      console.log(err);
-      alertService.warn(
-        `Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ${err.data}`,
+      alertService.error(
+        "Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: " +
+          err.data +
+          "\n\n\nSe não tiver se cadastrado, vá para a Home e tente novamente.",
         options
       );
       setDisabled(false);
