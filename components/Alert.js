@@ -42,7 +42,7 @@ function Alert({ id, fade }) {
 
         // auto close alert if required
         if (alert.autoClose) {
-          setTimeout(() => removeAlert(alert), 3000);
+          setTimeout(() => removeAlert(alert), 4500);
         }
       }
     });
@@ -98,14 +98,14 @@ function Alert({ id, fade }) {
 
     const alertTypeClass = {
       [AlertType.Success]:
-      //add an animation for entering and exiting
-        "alert-success p-2 border border-green-200 bg-green-200 text-lg rounded-md shadow-sm mb-2 animate__animated animate__fadeIn animate__fadeOut",
+        //add an animation for entering and exiting
+        "alert-success p-2 border border-green-200 bg-green-200 text-lg rounded-md shadow-sm mb-2 z-50",
       [AlertType.Error]:
-        "alert-danger p-2 border border-red-200 bg-red-200 text-lg rounded-md shadow-sm mb-2",
+        "alert-danger p-2 border border-red-200 bg-red-200 text-lg rounded-md shadow-sm mb-2 z-50",
       [AlertType.Info]:
-        "alert-info p-2 border border-blue-200 bg-blue-200 text-lg rounded-md shadow-sm mb-2",
+        "alert-info p-2 border border-blue-200 bg-blue-200 text-lg rounded-md shadow-sm mb-2 z-50",
       [AlertType.Warning]:
-        "alert-warning p-2 border border-yellow-200 bg-yellow-100 text-lg rounded-md shadow-sm mb-2",
+        "alert-warning p-2 border border-yellow-200 bg-yellow-100 text-lg rounded-md shadow-sm mb-2 z-50",
     };
 
     classes.push(alertTypeClass[alert.type]);
@@ -122,7 +122,11 @@ function Alert({ id, fade }) {
   return (
     <div className="fixed right-0 mr-2 mt-8 md:mt-0 w-3/4 md:w-1/4 z-50">
       {alerts.map((alert, index) => (
-        <div key={index} className={cssClasses(alert)} onClick={() => removeAlert(alert)}>
+        <div
+          key={index}
+          className={cssClasses(alert)}
+          onClick={() => removeAlert(alert)}
+        >
           <a
             className="close mr-1 cursor-pointer"
             onClick={() => removeAlert(alert)}

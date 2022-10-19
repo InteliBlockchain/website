@@ -11,37 +11,19 @@ import Linkedin from "../assets/Linkedin";
 const Admin = () => {
   const [data, setData] = useState([]);
 
-  const loadSubscriptions = async () => {
-    const response = await axios.get(`https://inteliblockchainserver.herokuapp.com/subs/get`);
-    return response.data;
-  };
+  const loadSubscriptions = async () => { };
 
-  useEffect(() => {
-    const load = async () => {
-      const subs = await loadSubscriptions();
-      setData(subs);
-    };
+  useEffect(() => { }, []);
 
-    load();
-    
-    console.log(data);
-  }, []);
+  const onReload = async () => { };
 
-  const onReload = async () => {
-    const subs = await loadSubscriptions();
-    setData(subs);
-  };
-
-  const deleteSub = async (id: string) => {
-    await axios.delete(`https://inteliblockchainserver.herokuapp.com/subs/delete/${id}`);
-    onReload();
-  };
+  const deleteSub = async (id: string) => {};
 
   return (
     <Layout>
-      <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto">
+      <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto inset-0">
         {/* Div 1 - Text */}
-        <div className="justify-center pt-8 md:pt-64 md:fixed w-full md:w-1/2 lg:w-1/2 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
+        <div className="justify-center pt-8 md:pt-64 md:fixed w-full md:w-1/2 lg:w-1/2 md:left-8 lg:left-32 mb-8 md:mb-0 px-2 inset-0 h-full">
           <div className="md:mx-6 md:my-2 items-center">
             <p className="font-bold text-zinc-800 montserrat text-left text-6xl md:text-7xl">
               Inscritos{" "}
