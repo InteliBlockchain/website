@@ -4,7 +4,7 @@ import { Shapes } from "./Shapes";
 import { transition } from "./settings";
 import useMeasure from "react-use-measure";
 
-export default function Button(className) {
+export default function Button({className, onClick}) {
   const [ref, bounds] = useMeasure({ scroll: false });
   const [isHover, setIsHover] = useState(false);
   const [isPress, setIsPress] = useState(false);
@@ -44,6 +44,7 @@ export default function Button(className) {
           mouseX.set(e.clientX - bounds.x - bounds.width / 2);
           mouseY.set(e.clientY - bounds.y - bounds.height / 2);
         }}
+        onClick={onClick}
       >
         <motion.div
           className="shapes"

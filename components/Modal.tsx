@@ -4,7 +4,13 @@ import { useForm } from "react-hook-form";
 import { alertService } from "../services/alert.service";
 import { Alert } from "./Alert";
 
-const Modal = (isOpened: { isOpened: boolean }) => {
+const Modal = ({
+  visible,
+  setVisible,
+}: {
+  visible: boolean;
+  setVisible: any;
+}) => {
   const [buttonText, setButtonText] = useState("Enviar");
 
   const {
@@ -61,17 +67,22 @@ const Modal = (isOpened: { isOpened: boolean }) => {
     }
   };
 
-  return isOpened.isOpened ? (
+  // close modal
+  const closeModal = () => {
+    setVisible(false);
+  };
+
+  return visible ? (
     <>
       <Alert />
 
-      <div className="modal absolute md:fixed w-full h-full flex flex-1 top-0 items-center justify-center bg-black bg-opacity-50 z-20 inset-0">
-        <div className="modal-content bg-white w-11/12 md:w-1/2 lg:w-1/3  mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-auto">
-          <p className="modal-header">
-            <p className="text-3xl font-bold mb-8">
-              Inscreva-se no Processo Seletivo
-            </p>
-          </p>
+      <div
+        className="modal absolute md:fixed w-full h-full flex flex-1 top-0 items-center justify-center bg-black bg-opacity-50 z-20 inset-0"
+      >
+        <div className="modal-content bg-white w-11/12 md:w-1/2 lg:w-1/3 cursor-default mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-auto z-40">
+          <div className="modal-header flex flex-row text-center items-center border border-red-500 content-center mb-8">
+            <button className="px-2 text-xl font-bold text-red-700 montserrat rounded-lg border border-red-500 mr-21" onClick={closeModal}>x</button><p className="text-xl">Inscreva-se no Processo Seletivo</p>
+          </div>
           <div className="modal-body">
             <div className="text-3xl md:text-5xl lg:text-6xl md:my-2 items-center mb-2">
               <p className="font-bold text-zinc-800 montserrat text-left mb-8">
@@ -114,14 +125,6 @@ const Modal = (isOpened: { isOpened: boolean }) => {
               )}
 
               <div className="flex flex-col items-center">
-                {/* <button
-                  className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full ${
-                    disabled
-                      ? "cursor-not-allowed bg-red-600 text-white"
-                      : "bg-gradient"
-                  }`}
-                  disabled={disabled}
-                > */}
                 <input
                   type="submit"
                   value={buttonText}
@@ -132,7 +135,6 @@ const Modal = (isOpened: { isOpened: boolean }) => {
                   }`}
                   disabled={disabled}
                 />
-                {/* </button> */}
               </div>
             </form>
           </div>
