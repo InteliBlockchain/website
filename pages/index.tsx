@@ -13,7 +13,7 @@ const IndexPage = () => {
 
   return (
     <>
-      <Modal isOpened={modalVisible} />
+      <Modal isOpened={modalVisible} closeModal={() => setModalVisible(false)} />
       <Layout title="Inteli Blockchain">
         <Header selectedPage="Home" />
 
