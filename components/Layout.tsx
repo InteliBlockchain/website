@@ -9,7 +9,7 @@ const Layout = ({
   hide = false,
 }: LayoutProps) => {
   return (
-    <div className="flex-1 w-full h-full md:pb-8">
+    <div className="flex-1 w-full h-full md:pb-8 select-none">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -20,7 +20,7 @@ const Layout = ({
 
       <div className="md:mt-24 mt-32">{children}</div>
 
-      <Footer hide={hide} />
+      {/* <Footer hide={hide} /> */}
     </div>
   );
 };

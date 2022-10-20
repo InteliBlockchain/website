@@ -56,7 +56,7 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
     } catch (err) {
       alertService.error(
         "Erro ao cadastrar email! Error: <b>" +
-          (err.response.data || "Indisponível") +
+          (err.response ? err.response.data : err.message) +
           "</b><br/><br/>Seu email pode já estar cadastrado.<br/>:)",
         options
       );
@@ -71,15 +71,15 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
       <Alert />
 
       <div className="z-30 top-[65%] sm:top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute modal-content min-w-[40%] bg-white w-11/12 sm:w-5/6 md:w-2/3 mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-fit mb-8">
-        <div className="relative modal-header">
+        <div className="relative modal-header flex flex-col md:flex-row items-start md:mb-8">
           <button
             className="text-[20px] transition scale-125 hover:scale-150 text-2xl align-center cursor-pointer alert-del"
             onClick={closeModal}
           >
             &times;
           </button>
-          <p className="text-3xl font-bold mb-8">
-            Inscreva-se no Processo Seletivo
+          <p className="text-3xl font-bold mb-8 sm:mb-0 sm:ml-4">
+            1º Passo: Cadastre seu email
           </p>
         </div>
         <div className="modal-body">
@@ -87,7 +87,7 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             <p className="font-bold text-zinc-800 montserrat text-left mb-8">
               Participe do nosso{" "}
               <span className="montserrat text-gradient font-bold">
-                Processo seletivo!
+                processo seletivo!
               </span>
             </p>
             <p className="montserrat text-lg text-zinc-800">
@@ -104,16 +104,18 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             className="bg-red-200 border border-red-200 p-4 rounded relative my-8"
             role="alert"
           >
-            <p className="montserrat text-md text-zinc-800 mb-4">
-              Atenção: O Processo Seletivo é feito em duas etapas. A primeira
-              consiste em uma confirmação do seu email, realizada pelo link que
-              será enviado para o email cadastrado.
+            <p className="montserrat text-md text-zinc-800">
+              <b>Atenção:</b> O Processo Seletivo é feito em <u>duas etapas</u>:
             </p>
             <p className="montserrat text-md text-zinc-800">
-              Em seguida, seguindo as instruções do email, você será
-              redirecionado para uma página onde deverá preencher um formulário
-              com algumas informações sobre você, e terá 1 hora a partir do
-              recebimento do email para finalizar a inscrição.
+              - A primeira consiste em uma confirmação do seu email, realizada
+              pelo link que será enviado para o email cadastrado.
+            </p>
+            <p className="montserrat text-md text-zinc-800">
+              - A segunda consiste em, seguindo as instruções do email, ir para
+              o nosso formulário de inscrição e realizar a inscrição de fato.
+              Você tem 1 hora a partir do envio do email para realizar a
+              inscrição.
             </p>
           </div>
 

@@ -6,7 +6,7 @@ import { HeaderProps } from "../interfaces/index.js";
 
 const Header = ({ selectedPage }: HeaderProps) => {
   return (
-    <header className="flex-1 w-full py-4 lg:px-2 justify-center items-center fixed top-0 z-10 bg shadow-md">
+    <header className="flex-1 w-full py-4 lg:px-2 justify-center items-center fixed top-0 z-10 bg">
       <nav className="p-2 w-full md:w-5/6 mx-auto flex flex-col justify-between md:flex-row items-center">
         <Link href="/">
           <a>

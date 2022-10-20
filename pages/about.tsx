@@ -6,9 +6,7 @@ import { UserProps } from "../interfaces";
 const User = ({ id, name }: UserProps) => {
   return (
     <Link
-      href={`
-      github.com/${name}
-    `}
+      href={`https://github.com/${name}`}
     >
       <a target="_blank">
         <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
@@ -38,6 +36,8 @@ const About = () => {
     { name: "PedroHaggeBaptista", id: "99206621" },
     { name: "vict0rcarvalh0", id: "99208741" },
     { name: "Lemos1347", id: "99190347" },
+    { name: "joaocarazzato", id: "99187756" },
+    { name: "henriquemarlon", id: "89201795" },
   ];
 
   return (
