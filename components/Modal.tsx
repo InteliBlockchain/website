@@ -36,12 +36,9 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
     }
 
     try {
-      const res = await axios.post(
-        `/Subscription/sendConfirmationEmail`,
-        {
-          email: data.email,
-        }
-      );
+      const res = await axios.post(`/Subscription/sendConfirmationEmail`, {
+        email: data.email,
+      });
 
       alertService.success(
         "Email adicionado com sucesso! Vá para sua caixa de entrada para os próximos passos.",
@@ -113,12 +110,15 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             </p>
             <p className="montserrat text-md text-zinc-800">
               - A segunda consiste em, seguindo as instruções do email, ir para
-              o nosso formulário de inscrição e preencher os textos.
-              Você tem 1 hora a partir do clique desse botão para finalizar a
-              inscrição. Caso não dê tempo, fique tranquilo, você pode repetir as duas etapas utilizando o mesmo email.
+              o nosso formulário de inscrição e preencher os textos. Você tem 1
+              hora a partir do clique desse botão para finalizar a inscrição.
+              Caso não dê tempo, fique tranquilo, você pode repetir as duas
+              etapas utilizando o mesmo email.
             </p>
-            <p  className="montserrat text-md text-zinc-800">
-            - Por favor, faça um backup dos textos antes de enviar para a prevenção de erros, porém também faremos um salvamento automático para garantir.
+            <p className="montserrat text-md text-zinc-800">
+              - Por favor, faça um backup dos textos antes de enviar para a
+              prevenção de erros, porém também faremos um salvamento automático
+              para garantir.
             </p>
           </div>
 
@@ -132,7 +132,8 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
               placeholder="nome.sobrenome@sou.inteli.edu.br"
               {...register("email", {
                 required: true,
-                pattern: /^[\w-.]+@sou.inteli.edu.br$/,
+                // pattern: /^[\w-.]+@sou.inteli.edu.br$/,
+                pattern: /^[a-zA-Z].[a-zA-Z]+@sou.inteli.edu.br$/,
               })}
               className={`w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent ${
                 errors.email ? "text-red-500 mb-1" : "mb-8"
