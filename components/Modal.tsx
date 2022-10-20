@@ -43,7 +43,10 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
         }
       );
 
-      alertService.success(res.data, options);
+      alertService.success(
+        "Email adicionado com sucesso! Vá para sua caixa de entrada para os próximos passos.",
+        options
+      );
 
       console.log("Try");
       console.log(res.data);
@@ -52,9 +55,9 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
       setButtonText("Enviar");
     } catch (err) {
       alertService.error(
-        "Erro ao cadastrar email!<br/> Descrição do erro: <b>" +
-          err.response.data +
-          "</b>",
+        "Erro ao cadastrar email! Error: <b>" +
+          (err.response ? err.response.data : err.message) +
+          "</b><br/><br/>Seu email pode já estar cadastrado ou você pode ter realizado mais requisições do que deveria. Cheque seu email e caso haja qualquer problema entre em contato!",
         options
       );
 
@@ -129,7 +132,8 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
               placeholder="nome.sobrenome@sou.inteli.edu.br"
               {...register("email", {
                 required: true,
-                pattern: /^[\w-.]+@sou.inteli.edu.br$/,
+                // pattern: /^[\w-.]+@sou.inteli.edu.br$/,
+                pattern: /^[a-zA-Z].[a-zA-Z]+@sou.inteli.edu.br$/,
               })}
               className={`w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent ${
                 errors.email ? "text-red-500 mb-1" : "mb-8"

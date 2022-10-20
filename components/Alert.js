@@ -42,7 +42,7 @@ function Alert({ id, fade }) {
 
         // auto close alert if required
         if (alert.autoClose) {
-          setTimeout(() => removeAlert(alert), 10000);
+          setTimeout(() => removeAlert(alert), 4500);
         }
       }
     });
