@@ -4,24 +4,24 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 interface Props {
-    isOpened: boolean
-    closeModal(): void
+  isOpened: boolean;
+  closeModal(): void;
 }
 
 const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
-    const [buttonText, setButtonText] = useState('Enviar')
+  const [buttonText, setButtonText] = useState("Enviar");
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
     const [disabled, setDisabled] = useState(false)
 
-    const onSubmit = async (data: { email: string }) => {
-        setDisabled(true)
-        setButtonText('Enviando...')
+  const onSubmit = async (data: { email: string }) => {
+    setDisabled(true);
+    setButtonText("Enviando...");
 
         if (!data) {
             toast.warn('Preencha seu email!')
@@ -37,8 +37,8 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             })
             toast.success(res.data)
 
-            console.log('Try')
-            console.log(res.data)
+      console.log("Try");
+      console.log(res.data);
 
             setDisabled(false)
             setButtonText('Enviar')
@@ -77,28 +77,35 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
                         </p>
                     </div>
 
-                    {/* create a warning div */}
-                    <div className="bg-red-200 border border-red-200 p-4 rounded relative my-8" role="alert">
-                        <p className="montserrat text-md text-zinc-800">
-                            <b>Atenção:</b> O Processo Seletivo é feito em <u>duas etapas</u>:
-                        </p>
-                        <p className="montserrat text-md text-zinc-800">
-                            - A primeira consiste em uma <b>confirmação do seu email</b>, realizada pelo link que será
-                            enviado para o email cadastrado;
-                        </p>
-                        <p className="montserrat text-md text-zinc-800">
-                            - A segunda consiste em, seguindo as instruções do email, ir para o nosso{' '}
-                            <b>formulário de inscrição e preencher os textos.</b>
-                            Você tem 1 hora a partir do clique desse botão para finalizar a inscrição. Caso não dê
-                            tempo, fique tranquilo, você pode repetir as duas etapas utilizando o mesmo email.
-                        </p>
-                        <p className="montserrat text-md text-zinc-800">
-                            - Por favor, faça um <b>backup</b> dos textos antes de enviar para a prevenção de erros,
-                            porém também faremos um salvamento automático para garantir.
-                        </p>
-                    </div>
+          {/* create a warning div */}
+          <div
+            className="bg-red-200 border border-red-200 p-4 rounded relative my-8"
+            role="alert"
+          >
+            <p className="montserrat text-md text-zinc-800">
+              <b>Atenção:</b> O Processo Seletivo é feito em <u>duas etapas</u>:
+            </p>
+            <p className="montserrat text-md text-zinc-800">
+              - A primeira consiste em uma confirmação do seu email, realizada
+              pelo link que será enviado para o email cadastrado;
+            </p>
+            <p className="montserrat text-md text-zinc-800">
+              - A segunda consiste em, seguindo as instruções do email, ir para
+              o nosso formulário de inscrição e preencher os textos. Você tem 1
+              hora a partir do clique desse botão para finalizar a inscrição.
+              Caso não dê tempo, fique tranquilo, você pode repetir as duas
+              etapas utilizando o mesmo email.
+            </p>
+            <p className="montserrat text-md text-zinc-800">
+              - Por favor, faça um backup dos textos antes de enviar para a
+              prevenção de erros, porém também faremos um salvamento automático
+              para garantir.
+            </p>
+          </div>
 
-                    <p className="font-semibold text-xl text-gradient">Seu email do Inteli:</p>
+          <p className="font-semibold text-xl text-gradient">
+            Seu email do Inteli:
+          </p>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input
@@ -134,4 +141,4 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
     ) : null
 }
 
-export default Modal
+export default Modal;
