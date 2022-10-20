@@ -24,13 +24,24 @@ const SelectiveProcess = () => {
     })
 
     useEffect(() => {
-        const form = JSON.parse(localStorage.getItem('form') || '')
-        if (form != '') {
+        const defaultForm = {
+            name: '',
+            bornDate: '',
+            github: '',
+            linkedin: '',
+            skills: '',
+            why: '',
+            about: '',
+        }
+
+        if (localStorage.getItem('form')) {
+            const form = JSON.parse(localStorage.getItem('form') || JSON.stringify(defaultForm))
             reset(form)
         }
     }, [])
 
     useEffect(() => {
+        console.log(watch())
         localStorage.setItem('form', JSON.stringify(watch()))
     }, [watch()])
 
