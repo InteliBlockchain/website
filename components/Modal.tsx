@@ -109,7 +109,7 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             </p>
             <p className="montserrat text-md text-zinc-800">
               - A primeira consiste em uma confirmação do seu email, realizada
-              pelo link que será enviado para o email cadastrado.
+              pelo link que será enviado para o email cadastrado;
             </p>
             <p className="montserrat text-md text-zinc-800">
               - A segunda consiste em, seguindo as instruções do email, ir para

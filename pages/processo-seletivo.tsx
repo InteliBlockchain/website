@@ -24,12 +24,15 @@ const SelectiveProcess = () => {
     let urlToken = router.query.token;
     let urlEmail = router.query.email;
 
+    if (!urlToken || !urlEmail) {
+      router.push("/");
+      return;
+    }
+
     const res = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/Token`, {
       token: urlToken,
       email: urlEmail,
     });
-
-    console.log(urlToken, urlEmail, res.data);
 
     if (!res.data.validation) {
       alertService.error(
@@ -39,13 +42,13 @@ const SelectiveProcess = () => {
       setTimeout(() => {
         router.push("/");
       }, 2500);
-      return false;
+      return;
     } else {
       alertService.success(
         "Token válido! Preencha o formulário abaixo.",
         options
       );
-      return true;
+      return;
     }
   };
 
@@ -77,17 +80,20 @@ const SelectiveProcess = () => {
     // });
 
     try {
-      const response = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/continue`, {
-        name: data.name,
-        email: router.query.email,
-        bornDate: data.bornDate,
-        github: data.github,
-        linkedin: data.linkedin,
-        skills: data.skills,
-        why: data.why,
-        about: data.about,
-        token: router.query.token,
-      });
+      const response = await axios.post(
+        `https://inteli-blockchain-server.herokuapp.com/Subscription/continue`,
+        {
+          name: data.name,
+          email: router.query.email,
+          bornDate: data.bornDate,
+          github: data.github,
+          linkedin: data.linkedin,
+          skills: data.skills,
+          why: data.why,
+          about: data.about,
+          token: router.query.token,
+        }
+      );
 
       alertService.success(
         "Inscrição realizada com sucesso! Redirecionando...",
@@ -116,12 +122,23 @@ const SelectiveProcess = () => {
       <div className="flex flex-col md:flex-row py-2 justify-around mb-8 w-full lg:w-5/6 mx-auto">
         {/* Div 1 - Text */}
         <div className="justify-center pt-8 md:pt-48 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
-          <div className="text-6xl md:text-8xl md:mx-6 md:my-2 items-center">
-            <p className="font-bold text-zinc-800 montserrat text-left">
+          <div className="md:mx-6 md:my-2 items-center">
+            <p className="text-6xl md:text-8xl font-bold text-zinc-800 montserrat text-left mb-2">
               Processo{" "}
               <span className="montserrat text-gradient font-bold">
                 seletivo 2022.2
               </span>
+            </p>
+
+            <p className="text-zinc-800 text-2xl font-bold montserrat text-left">
+              <p>
+                ✅{" "}
+                <span className="line-through">
+                  {" "}
+                  1º Passo: Cadastre seu email
+                </span>
+              </p>
+              <p>🔲 2º Passo: Responda o formulário</p>
             </p>
           </div>
 
@@ -209,7 +226,7 @@ const SelectiveProcess = () => {
               Quais habilidades você gostaria de destacar? (técnicas ou não) *
             </p>
             <textarea
-              placeholder="Habilidades"
+              placeholder="Exemplo: Tenho experiência com desenvolvimento web, e estou aprendendo sobre blockchain..."
               {...register("skills", { required: true })}
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             />
@@ -218,7 +235,7 @@ const SelectiveProcess = () => {
               Por que deseja entrar no grupo? *
             </p>
             <textarea
-              placeholder="Por que deseja entrar no grupo?"
+              placeholder="Exemplo: Gostaria de aprender mais sobre blockchain e participar de projetos..."
               {...register("why", { required: true })}
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             />
@@ -228,7 +245,7 @@ const SelectiveProcess = () => {
               pretende realizar estudando aqui?... *
             </p>
             <textarea
-              placeholder="Conte um pouco de você. Como você chegou até o Inteli? O que você pretende realizar estudando aqui?..."
+              placeholder="Exemplo: Sou da cidade de São Paulo, e acabei conhecendo o Inteli por meio de um amigo..."
               {...register("about", { required: true })}
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             />
