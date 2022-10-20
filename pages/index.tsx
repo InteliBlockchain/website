@@ -74,7 +74,7 @@ const IndexPage = () => {
             <Layout title="Inteli Blockchain" hide={false}>
                 <Header selectedPage="Home" />
 
-                <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto ">
+                <div className="flex flex-col md:flex-row justify-around px-8 lg:px-0 mb-8 w-full lg:w-5/6 mx-auto my-auto ">
                     {/* Div 1 - Text */}
                     <div className="md:w-3/4 lg:w-1/2 w-full justify-center py-8 mb-2 md:pt-12">
                         <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
