@@ -12,6 +12,8 @@ import { GetServerSideProps } from 'next'
 const SelectiveProcess = () => {
     const router = useRouter()
 
+    const [isDone, setIsDone] = useState('🔲')
+
     const { register, handleSubmit, watch, reset } = useForm<dataModel>()
     const [data, setData] = useState('')
     const [buttonText, setButtonText] = useState('Enviar')
@@ -30,33 +32,7 @@ const SelectiveProcess = () => {
 
     useEffect(() => {
         localStorage.setItem('form', JSON.stringify(watch()))
-
-        // console.log(watch())
     }, [watch()])
-
-    // const validateToken = async () => {
-    //     let urlToken = router.query.token
-    //     let urlEmail = router.query.email
-
-    //     const res = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/Token`, {
-    //         token: urlToken,
-    //         email: urlEmail,
-    //     })
-
-    //     if (!res.data.validation) {
-    //         alertService.error(
-    //             'Oops, seu token expirou. Fizemos essa validação para prevenir ataques. Por favor, faça a sua inscrição novamente! Cuidado, muitas tentativas te bloquearão.',
-    //             options
-    //         )
-    //         setTimeout(() => {
-    //             router.push('/')
-    //         }, 2500)
-    //         return
-    //     } else {
-    //         alertService.success('Token válido! Preencha o formulário abaixo.', options)
-    //         return
-    //     }
-    // }
 
     const onSubmit = async (data: dataModel) => {
         setDisabled(true)
@@ -84,11 +60,12 @@ const SelectiveProcess = () => {
             })
 
             alertService.success('Inscrição realizada com sucesso! Redirecionando...', options)
+            setIsDone('✅')
             setTimeout(() => {
                 router.push('/')
             }, 1500)
         } catch (err) {
-          console.log(err)
+            console.log(err)
             alertService.error(
                 'Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ' +
                     err.response.data +
@@ -113,12 +90,12 @@ const SelectiveProcess = () => {
                             Processo <span className="montserrat text-gradient font-bold">seletivo 2022.2</span>
                         </p>
 
-                        <p className="text-zinc-800 text-2xl font-bold montserrat text-left">
+                        <div className="text-zinc-800 text-2xl font-bold montserrat text-left">
                             <p>
                                 ✅ <span className="line-through"> 1º Passo: Cadastre seu email</span>
                             </p>
-                            <p>🔲 2º Passo: Responda o formulário</p>
-                        </p>
+                            <p>{isDone} 2º Passo: Responda o formulário</p>
+                        </div>
                     </div>
 
                     <div className="text-6xl md:text-7xl md:mx-6 items-center mt-8">
@@ -240,6 +217,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const redirect = () => {
         ctx.res.writeHead(301, { Location: '/?tokenError=true' })
         ctx.res.end()
+        // Pass data to the page via props
+        return
     }
 
     try {
@@ -256,7 +235,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
 
     // Pass data to the page via props
-    return { props: {} }
+    return { props: { message: 'true' } }
 }
 
 export default SelectiveProcess
