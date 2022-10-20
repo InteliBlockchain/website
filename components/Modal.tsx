@@ -108,17 +108,17 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
               <b>Atenção:</b> O Processo Seletivo é feito em <u>duas etapas</u>:
             </p>
             <p className="montserrat text-md text-zinc-800">
-              - A primeira consiste em uma confirmação do seu email, realizada
+              - A primeira consiste em uma  <b>confirmação do seu email</b>, realizada
               pelo link que será enviado para o email cadastrado;
             </p>
             <p className="montserrat text-md text-zinc-800">
               - A segunda consiste em, seguindo as instruções do email, ir para
-              o nosso formulário de inscrição e preencher os textos.
+              o nosso <b>formulário de inscrição e preencher os textos.</b>
               Você tem 1 hora a partir do clique desse botão para finalizar a
               inscrição. Caso não dê tempo, fique tranquilo, você pode repetir as duas etapas utilizando o mesmo email.
             </p>
             <p  className="montserrat text-md text-zinc-800">
-            - Por favor, faça um backup dos textos antes de enviar para a prevenção de erros, porém também faremos um salvamento automático para garantir.
+            - Por favor, faça um <b>backup</b> dos textos antes de enviar para a prevenção de erros, porém também faremos um salvamento automático para garantir.
             </p>
           </div>
 
