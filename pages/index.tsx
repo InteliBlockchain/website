@@ -50,9 +50,9 @@ const IndexPage = () => {
     useEffect(() => {
         if (!Router.isReady) return
 
-        if (Router.query.tokenError) {
+        if (Router.query.tokenError && Router.query.errorMessage) {
             alertService.error(
-                'Oops, seu token expirou.<br/>Fizemos essa validação para prevenir ataques.<br/>Por favor, faça a sua inscrição novamente!<br/>Cuidado, muitas tentativas te bloquearão.',
+                'Error: ' + Router.query.errorMessage,
                 {
                     autoClose: false,
                     keepAfterRouteChange: false,

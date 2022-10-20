@@ -224,28 +224,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     let urlToken = ctx.query.token
     let urlEmail = ctx.query.email
 
-    const redirect = () => {
-        ctx.res.writeHead(301, { Location: '/?tokenError=true' })
+    const redirect = (errorMessage: string) => {
+        ctx.res.writeHead(301, { Location: '/?tokenError=true&errorMessage=' + errorMessage })
         ctx.res.end()
         // Pass data to the page via props
         return
     }
 
     try {
-        const { data } = await axios.post(`/Subscription/Token`, {
+        await axios.post(`/Subscription/Token`, {
             token: urlToken,
             email: urlEmail,
         })
-
-        if (!data.validation) {
-            redirect()
-        }
     } catch (err) {
-        redirect()
+        redirect(err.response.data)
     }
 
     // Pass data to the page via props
-    return { props: { message: 'true' } }
+    return { props: {} }
 }
 
 export default SelectiveProcess
