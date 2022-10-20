@@ -81,11 +81,7 @@ const IndexPage = () => {
               </p>
               <p className="montserrat text-lg text-zinc-800">
                 Inscrições até dia 26/09/2022!{" "}
-                {dateDiff.days !== 0 &&
-                dateDiff.hours !== 0 &&
-                dateDiff.minutes !== 0 &&
-                dateDiff.seconds !== 0
-                  ? `Faltam ${dateDiff.days} dias, ${dateDiff.hours} horas, ${dateDiff.minutes} minutos e ${dateDiff.seconds} segundos...`
+                {dateDiff.days !== 0 ? `Faltam ${dateDiff.days} dias, ${dateDiff.hours} horas, ${dateDiff.minutes} minutos e ${dateDiff.seconds} segundos...`
                   : ""}
               </p>
             </div>

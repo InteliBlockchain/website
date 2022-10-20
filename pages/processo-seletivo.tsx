@@ -24,11 +24,6 @@ const SelectiveProcess = () => {
     let urlToken = router.query.token;
     let urlEmail = router.query.email;
 
-    if (!urlToken || !urlEmail) {
-      router.push("/");
-      return;
-    }
-
     const res = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/Token`, {
       token: urlToken,
       email: urlEmail,
@@ -66,18 +61,9 @@ const SelectiveProcess = () => {
       setDisabled(false);
       setButtonText("Enviar");
       return;
-    }
+    } 
 
-    // console.log({
-    //   name: data.name,
-    //   email: router.query.email,
-    //   bornDate: data.bornDate,
-    //   github: data.github,
-    //   linkedin: data.linkedin,
-    //   skills: data.skills,
-    //   why: data.why,
-    //   about: data.about,
-    // });
+
 
     try {
       const response = await axios.post(
