@@ -26,7 +26,7 @@ const IndexPage = () => {
 
     const loadDateDiff = () => {
         const dateNow = new Date()
-        const dateFuture = new Date(2022, 9, 27, 0, 0, 0)
+        const dateFuture = new Date(2022, 9, 26, 0, 0, 0)
 
         const diff = dateFuture.getTime() - dateNow.getTime()
 
@@ -50,9 +50,9 @@ const IndexPage = () => {
     useEffect(() => {
         if (!Router.isReady) return
 
-        if (Router.query.tokenError) {
+        if (Router.query.tokenError && Router.query.errorMessage) {
             alertService.error(
-                'Oops, seu token expirou.<br/>Fizemos essa validação para prevenir ataques.<br/>Por favor, faça a sua inscrição novamente!<br/>Cuidado, muitas tentativas te bloquearão.',
+                'Error: ' + Router.query.errorMessage,
                 {
                     autoClose: false,
                     keepAfterRouteChange: false,
@@ -74,7 +74,7 @@ const IndexPage = () => {
             <Layout title="Inteli Blockchain" hide={false}>
                 <Header selectedPage="Home" />
 
-                <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto ">
+                <div className="flex flex-col md:flex-row justify-around px-8 lg:px-0 mb-8 w-full lg:w-5/6 mx-auto my-auto ">
                     {/* Div 1 - Text */}
                     <div className="md:w-3/4 lg:w-1/2 w-full justify-center py-8 mb-2 md:pt-12">
                         <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
@@ -90,7 +90,7 @@ const IndexPage = () => {
                                 projetos do clube!
                             </p>
                             <p className="montserrat text-lg text-zinc-800">
-                                Inscrições até dia 26/09/2022!{' '}
+                                Inscrições até dia 25/10/2022 às 23:59!{' '}
                                 {dateDiff.days !== 0
                                     ? `Faltam ${dateDiff.days} dias, ${dateDiff.hours} horas, ${dateDiff.minutes} minutos e ${dateDiff.seconds} segundos...`
                                     : ''}
