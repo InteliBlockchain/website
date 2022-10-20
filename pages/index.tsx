@@ -6,64 +6,24 @@ import { useEffect, useState } from 'react'
 import Modal from '../components/Modal'
 import Footer from '../components/Footer'
 import { useRouter } from 'next/router'
-import { alertService } from '../services/alert.service'
-import { Alert } from '../components/Alert'
+import { toast } from 'react-toastify'
+import Timer from '../components/Timer'
 
 const IndexPage = () => {
     const [modalVisible, setModalVisible] = useState<boolean>(false)
     const Router = useRouter()
-    const [dateDiff, setDateDiff] = useState<{
-        days: number | string
-        hours: number | string
-        minutes: number | string
-        seconds: number | string
-    }>({
-        days: '00',
-        hours: '00',
-        minutes: '00',
-        seconds: '00',
-    })
-
-    const loadDateDiff = () => {
-        const dateNow = new Date()
-        const dateFuture = new Date(2022, 9, 26, 0, 0, 0)
-
-        const diff = dateFuture.getTime() - dateNow.getTime()
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
-        const minutes = Math.floor((diff / 1000 / 60) % 60)
-        const seconds = Math.floor((diff / 1000) % 60)
-
-        setDateDiff({
-            days,
-            hours,
-            minutes,
-            seconds,
-        })
-    }
-
-    setTimeout(() => {
-        loadDateDiff()
-    }, 1000)
+   
 
     useEffect(() => {
         if (!Router.isReady) return
 
         if (Router.query.tokenError && Router.query.errorMessage) {
-            alertService.error(
-                'Error: ' + Router.query.errorMessage,
-                {
-                    autoClose: false,
-                    keepAfterRouteChange: false,
-                }
-            )
+            toast.error('Error: ' + Router.query.errorMessage)
         }
     }, [Router.isReady])
 
     return (
         <>
-            <Alert />
             <Modal isOpened={modalVisible} closeModal={() => setModalVisible(false)} />
             <div
                 onClick={() => setModalVisible(false)}
@@ -91,9 +51,7 @@ const IndexPage = () => {
                             </p>
                             <p className="montserrat text-lg text-zinc-800">
                                 Inscrições até dia 25/10/2022 às 23:59!{' '}
-                                {dateDiff.days !== 0
-                                    ? `Faltam ${dateDiff.days} dias, ${dateDiff.hours} horas, ${dateDiff.minutes} minutos e ${dateDiff.seconds} segundos...`
-                                    : ''}
+                                <Timer />
                             </p>
                         </div>
 

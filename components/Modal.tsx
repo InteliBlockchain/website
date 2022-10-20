@@ -1,8 +1,7 @@
 import axios from '../axios'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { alertService } from '../services/alert.service'
-import { Alert } from './Alert'
+import { toast } from 'react-toastify'
 
 interface Props {
     isOpened: boolean
@@ -19,17 +18,14 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
     } = useForm()
 
     const [disabled, setDisabled] = useState(false)
-    const [options, setOptions] = useState({
-        autoClose: true,
-        keepAfterRouteChange: false,
-    })
 
     const onSubmit = async (data: { email: string }) => {
         setDisabled(true)
         setButtonText('Enviando...')
 
         if (!data) {
-            alertService.warn('Preencha seu email!', options)
+            toast.warn('Preencha seu email!')
+
             setDisabled(false)
             setButtonText('Enviar')
             return
@@ -39,8 +35,7 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             const res = await axios.post(`/Subscription/sendConfirmationEmail`, {
                 email: data.email,
             })
-
-            alertService.success(res.data, options)
+            toast.success(res.data)
 
             console.log('Try')
             console.log(res.data)
@@ -48,20 +43,16 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             setDisabled(false)
             setButtonText('Enviar')
         } catch (err) {
-            alertService.error(
-                'Erro ao cadastrar email!<br/> Descrição do erro: <b>' + err.response.data + '</b>',
-                options
-            )
+            toast.error('Erro ao cadastrar email!\n Descrição do erro: ' + err.response.data)
 
             setDisabled(false)
             setButtonText('Enviar')
         }
     }
+    console.log(errors)
 
     return isOpened ? (
         <>
-            <Alert />
-
             <div className="z-30 top-[65%] sm:top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute modal-content min-w-[40%] bg-white w-11/12 sm:w-5/6 md:w-2/3 mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-fit mb-8">
                 <div className="relative modal-header flex flex-col md:flex-row items-start md:mb-8">
                     <button
@@ -118,24 +109,23 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
                                 pattern: /^[\w-.]+@sou.inteli.edu.br$/,
                             })}
                             className={`w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent ${
-                                errors.email ? 'text-red-500 mb-1' : 'mb-8'
+                                errors.email ? 'text-red-500 mb-4' : 'mb-8'
                             }`}
                         />
 
                         {errors.email?.type === 'pattern' && (
-                            <p className="text-red-500 text-sm mb-2">Insira um email do Inteli (@sou.inteli.edu.br)</p>
+                            <p className="text-red-500 text-sm mb-4">Insira um email do Inteli (@sou.inteli.edu.br)</p>
                         )}
 
                         <div className="flex flex-col items-center">
-                            <input
+                            <button
                                 type="submit"
-                                value={buttonText}
                                 className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full cursor-pointer ${
                                     disabled ? 'cursor-not-allowed bg-red-600 text-white' : 'bg-gradient'
                                 }`}
-                                disabled={disabled}
-                            />
-                            {/* </button> */}
+                                disabled={disabled}>
+                                {buttonText}
+                            </button>
                         </div>
                     </form>
                 </div>

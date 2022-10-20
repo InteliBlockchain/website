@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Header from '../components/Header'
 import Layout from '../components/Layout'
-import { Alert } from '../components/Alert'
-import { alertService } from '../services/alert.service'
 import { useRouter } from 'next/router'
 import { dataModel } from '../interfaces'
 import { GetServerSideProps } from 'next'
+import { toast } from 'react-toastify'
 
 const SelectiveProcess = () => {
     const router = useRouter()
@@ -18,10 +17,7 @@ const SelectiveProcess = () => {
     const [data, setData] = useState('')
     const [buttonText, setButtonText] = useState('Enviar')
     const [disable, setDisabled] = useState(false)
-    const [options, setOptions] = useState({
-        autoClose: true,
-        keepAfterRouteChange: false,
-    })
+  
 
     useEffect(() => {
         const defaultForm = {
@@ -50,7 +46,7 @@ const SelectiveProcess = () => {
 
         // checks if the data is valid
         if (!data) {
-            alertService.warn('Preencha todos os campos!', options)
+            toast.warn('Preencha todos os campos!')
             setDisabled(false)
             setButtonText('Enviar')
             return
@@ -69,18 +65,17 @@ const SelectiveProcess = () => {
                 token: router.query.token,
             })
 
-            alertService.success('Inscrição realizada com sucesso! Redirecionando...', options)
+            toast.success('Inscrição realizada com sucesso! Redirecionando...')
             setIsDone('✅')
             setTimeout(() => {
                 router.push('/')
             }, 1500)
         } catch (err) {
             console.log(err)
-            alertService.error(
+            toast.error(
                 'Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ' +
                     err.response.data +
-                    '\n\n\nSe não tiver se cadastrado, vá para a Home e tente novamente.',
-                options
+                    '\n\n\nSe não tiver se cadastrado, vá para a Home e tente novamente.'
             )
             setDisabled(false)
             setButtonText('Enviar')
@@ -90,7 +85,6 @@ const SelectiveProcess = () => {
     return (
         <Layout title="Inteli Blockchain">
             <Header selectedPage="processo-seletivo" />
-            <Alert />
 
             <div className="flex flex-col md:flex-row py-2 justify-around mb-8 w-full lg:w-5/6 mx-auto">
                 {/* Div 1 - Text */}
