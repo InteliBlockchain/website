@@ -57,7 +57,7 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
       alertService.error(
         "Erro ao cadastrar email! Error: <b>" +
           (err.response ? err.response.data : err.message) +
-          "</b><br/><br/>Seu email pode já estar cadastrado.<br/>:)",
+          "</b><br/><br/>Seu email pode já estar cadastrado ou você pode ter realizado mais requisições do que deveria. Cheque seu email e caso haja qualquer problema entre em contato!",
         options
       );
 
