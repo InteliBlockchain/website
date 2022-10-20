@@ -113,9 +113,12 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
             </p>
             <p className="montserrat text-md text-zinc-800">
               - A segunda consiste em, seguindo as instruções do email, ir para
-              o nosso formulário de inscrição e realizar a inscrição de fato.
-              Você tem 1 hora a partir do envio do email para realizar a
-              inscrição.
+              o nosso formulário de inscrição e preencher os textos.
+              Você tem 1 hora a partir do clique desse botão para finalizar a
+              inscrição. Caso não dê tempo, fique tranquilo, você pode repetir as duas etapas utilizando o mesmo email.
+            </p>
+            <p  className="montserrat text-md text-zinc-800">
+            - Por favor, faça um backup dos textos antes de enviar para a prevenção de erros, porém também faremos um salvamento automático para garantir.
             </p>
           </div>
 
