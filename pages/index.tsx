@@ -26,7 +26,7 @@ const IndexPage = () => {
 
     const loadDateDiff = () => {
         const dateNow = new Date()
-        const dateFuture = new Date(2022, 9, 27, 0, 0, 0)
+        const dateFuture = new Date(2022, 9, 26, 0, 0, 0)
 
         const diff = dateFuture.getTime() - dateNow.getTime()
 
@@ -90,7 +90,7 @@ const IndexPage = () => {
                                 projetos do clube!
                             </p>
                             <p className="montserrat text-lg text-zinc-800">
-                                Inscrições até dia 26/09/2022!{' '}
+                                Inscrições até dia 25/10/2022 às 23:59!{' '}
                                 {dateDiff.days !== 0
                                     ? `Faltam ${dateDiff.days} dias, ${dateDiff.hours} horas, ${dateDiff.minutes} minutos e ${dateDiff.seconds} segundos...`
                                     : ''}
