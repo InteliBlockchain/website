@@ -10,7 +10,15 @@ const IndexPage = () => {
 
   return (
     <>
-      <Modal isOpened={modalVisible} closeModal={() => setModalVisible(false)} />
+      <Modal
+        isOpened={modalVisible}
+        closeModal={() => setModalVisible(false)}
+      />
+      <div
+        onClick={() => setModalVisible(false)}
+        className={`modal absolute md:fixed w-full min-h-full h-full flex flex-1 top-0 items-center justify-center bg-black bg-opacity-75 z-20 inset-0 ${modalVisible ? "" : "hidden"}`}
+      ></div>
+
       <Layout title="Inteli Blockchain">
         <Header selectedPage="Home" />
 
@@ -19,9 +27,11 @@ const IndexPage = () => {
           <div className="md:w-3/4 lg:w-1/2 w-full justify-center py-8 mb-2 md:pt-16">
             <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
               <div>
-                <p className="font-bold text-zinc-800 montserrat text-left">Participe do nosso{" "}</p>
+                <p className="font-bold text-zinc-800 montserrat text-left">
+                  Participe do nosso{" "}
+                </p>
                 <span className="montserrat text-gradient font-bold">
-                  Processo seletivo!
+                  processo seletivo!
                 </span>
               </div>
             </div>
@@ -34,12 +44,11 @@ const IndexPage = () => {
             </div>
 
             <div className=" md:mx-6 md:my-2 justify-center md:justify-start flex mt-2">
-              <div
-                className="cursor-pointer"
-              >
-                <Button onClick={
-                  () => setModalVisible(!modalVisible)
-                } className={""} />
+              <div className="cursor-pointer">
+                <Button
+                  onClick={() => setModalVisible(!modalVisible)}
+                  className={""}
+                />
               </div>
             </div>
           </div>

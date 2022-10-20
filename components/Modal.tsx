@@ -1,147 +1,163 @@
-import axios from 'axios'
-import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { alertService } from '../services/alert.service'
-import { Alert } from './Alert'
+import axios from "axios";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { alertService } from "../services/alert.service";
+import { Alert } from "./Alert";
 
 interface Props {
-    isOpened: boolean
-    closeModal(): void
+  isOpened: boolean;
+  closeModal(): void;
 }
 
 const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
-    const [buttonText, setButtonText] = useState('Enviar')
+  const [buttonText, setButtonText] = useState("Enviar");
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const [disabled, setDisabled] = useState(false)
-    const [options, setOptions] = useState({
-        autoClose: true,
-        keepAfterRouteChange: false,
-    })
+  const [disabled, setDisabled] = useState(false);
+  const [options, setOptions] = useState({
+    autoClose: true,
+    keepAfterRouteChange: false,
+  });
 
-    const onSubmit = async (data: { email: string }) => {
-        setDisabled(true)
-        setButtonText('Enviando...')
+  const onSubmit = async (data: { email: string }) => {
+    setDisabled(true);
+    setButtonText("Enviando...");
 
-        if (!data) {
-            alertService.warn('Preencha seu email!', options)
-            setDisabled(false)
-            setButtonText('Enviar')
-            return
-        }
-
-        try {
-            const res = await axios.post(
-                `https://inteli-blockchain-server.herokuapp.com/Subscription/sendConfirmationEmail`,
-                {
-                    email: data.email,
-                }
-            )
-
-            alertService.success(
-                'Email adicionado com sucesso! Vá para sua caixa de entrada para os próximos passos.',
-                options
-            )
-
-            console.log('Try')
-            console.log(res.data)
-
-            setDisabled(false)
-            setButtonText('Enviar')
-        } catch (err) {
-            alertService.error(
-                'Erro ao cadastrar email! Error: <b>' +
-                    (err.response.data || 'Indisponível') +
-                    '</b><br/><br/>Seu email pode já estar cadastrado.<br/>:)',
-                options
-            )
-
-            setDisabled(false)
-            setButtonText('Enviar')
-        }
+    if (!data) {
+      alertService.warn("Preencha seu email!", options);
+      setDisabled(false);
+      setButtonText("Enviar");
+      return;
     }
 
-    return isOpened ? (
-        <>
-            <Alert />
+    try {
+      const res = await axios.post(
+        `https://inteli-blockchain-server.herokuapp.com/Subscription/sendConfirmationEmail`,
+        {
+          email: data.email,
+        }
+      );
 
-            <div
-                onClick={closeModal}
-                className="modal absolute md:fixed w-full h-full flex flex-1 top-0 items-center justify-center bg-black bg-opacity-50 z-20 inset-0 "></div>
-            <div
-                className="z-30 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] fixed modal-content min-w-[40%] bg-white w-11/12 md:w-1/2 mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-fit">
-                <p className="relative modal-header">
-                    <p className="text-3xl font-bold mb-8">Inscreva-se no Processo Seletivo</p>
-                    <button
-                        className="absolute text-[20px] transition scale-125 hover:scale-150 top-0 right-0 text-xl align-center cursor-pointer alert-del"
-                        onClick={closeModal}>
-                        &times;
-                    </button>
-                </p>
-                <div className="modal-body">
-                    <div className="text-3xl md:text-5xl lg:text-6xl md:my-2 items-center mb-2">
-                        <p className="font-bold text-zinc-800 montserrat text-left mb-8">
-                            Participe do nosso{' '}
-                            <span className="montserrat text-gradient font-bold">Processo seletivo!</span>
-                        </p>
-                        <p className="montserrat text-lg text-zinc-800">
-                            É a sua chance de aprender mais sobre o mundo da tecnologia Blockchain e participar dos
-                            projetos do clube!
-                        </p>
-                    </div>
-                    <p className="montserrat text-lg text-zinc-800 mb-8">
-                        Insira o seu email e receberá um email de confirmação para ir para a próxima etapa do Processo
-                        Seletivo.
-                    </p>
+      alertService.success(
+        "Email adicionado com sucesso! Vá para sua caixa de entrada para os próximos passos.",
+        options
+      );
 
-                    <p className="font-semibold text-xl text-gradient">Seu email do Inteli:</p>
+      console.log("Try");
+      console.log(res.data);
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <input
-                            type="email"
-                            placeholder="nome.sobrenome@sou.inteli.edu.br"
-                            {...register('email', {
-                                required: true,
-                                pattern: /^[\w-.]+@sou.inteli.edu.br$/,
-                            })}
-                            className={`w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent ${
-                                errors.email ? 'text-red-500 mb-1' : 'mb-8'
-                            }`}
-                        />
+      setDisabled(false);
+      setButtonText("Enviar");
+    } catch (err) {
+      alertService.error(
+        "Erro ao cadastrar email! Error: <b>" +
+          (err.response.data || "Indisponível") +
+          "</b><br/><br/>Seu email pode já estar cadastrado.<br/>:)",
+        options
+      );
 
-                        {errors.email?.type === 'pattern' && (
-                            <p className="text-red-500 text-sm mb-2">Insira um email do Inteli (@sou.inteli.edu.br)</p>
-                        )}
+      setDisabled(false);
+      setButtonText("Enviar");
+    }
+  };
 
-                        <div className="flex flex-col items-center">
-                            {/* <button
-                  className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full ${
-                    disabled
-                      ? "cursor-not-allowed bg-red-600 text-white"
-                      : "bg-gradient"
-                  }`}
-                  disabled={disabled}
-                > */}
-                            <input
-                                type="submit"
-                                value={buttonText}
-                                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full cursor-pointer ${
-                                    disabled ? 'cursor-not-allowed bg-red-600 text-white' : 'bg-gradient'
-                                }`}
-                                disabled={disabled}
-                            />
-                            {/* </button> */}
-                        </div>
-                    </form>
-                </div>
+  return isOpened ? (
+    <>
+      <Alert />
+
+      <div className="z-30 top-[65%] sm:top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute modal-content min-w-[40%] bg-white w-11/12 sm:w-5/6 md:w-2/3 mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-fit mb-8">
+        <div className="relative modal-header">
+          <button
+            className="text-[20px] transition scale-125 hover:scale-150 text-2xl align-center cursor-pointer alert-del"
+            onClick={closeModal}
+          >
+            &times;
+          </button>
+          <p className="text-3xl font-bold mb-8">
+            Inscreva-se no Processo Seletivo
+          </p>
+        </div>
+        <div className="modal-body">
+          <div className="text-3xl md:text-5xl lg:text-6xl md:my-2 items-center mb-2">
+            <p className="font-bold text-zinc-800 montserrat text-left mb-8">
+              Participe do nosso{" "}
+              <span className="montserrat text-gradient font-bold">
+                Processo seletivo!
+              </span>
+            </p>
+            <p className="montserrat text-lg text-zinc-800">
+              É a sua chance de aprender mais sobre o mundo da tecnologia
+              Blockchain e participar dos projetos do clube!
+              <br />
+              Insira o seu email e receberá um email de confirmação para ir para
+              a próxima etapa do Processo Seletivo.
+            </p>
+          </div>
+
+          {/* create a warning div */}
+          <div
+            className="bg-red-200 border border-red-200 p-4 rounded relative my-8"
+            role="alert"
+          >
+            <p className="montserrat text-md text-zinc-800 mb-4">
+              Atenção: O Processo Seletivo é feito em duas etapas. A primeira
+              consiste em uma confirmação do seu email, realizada pelo link que
+              será enviado para o email cadastrado.
+            </p>
+            <p className="montserrat text-md text-zinc-800">
+              Em seguida, seguindo as instruções do email, você será
+              redirecionado para uma página onde deverá preencher um formulário
+              com algumas informações sobre você, e terá 1 hora a partir do
+              recebimento do email para finalizar a inscrição.
+            </p>
+          </div>
+
+          <p className="font-semibold text-xl text-gradient">
+            Seu email do Inteli:
+          </p>
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              type="email"
+              placeholder="nome.sobrenome@sou.inteli.edu.br"
+              {...register("email", {
+                required: true,
+                pattern: /^[\w-.]+@sou.inteli.edu.br$/,
+              })}
+              className={`w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent ${
+                errors.email ? "text-red-500 mb-1" : "mb-8"
+              }`}
+            />
+
+            {errors.email?.type === "pattern" && (
+              <p className="text-red-500 text-sm mb-2">
+                Insira um email do Inteli (@sou.inteli.edu.br)
+              </p>
+            )}
+
+            <div className="flex flex-col items-center">
+              <input
+                type="submit"
+                value={buttonText}
+                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full cursor-pointer ${
+                  disabled
+                    ? "cursor-not-allowed bg-red-600 text-white"
+                    : "bg-gradient"
+                }`}
+                disabled={disabled}
+              />
+              {/* </button> */}
             </div>
-        </>
-    ) : null
-}
+          </form>
+        </div>
+      </div>
+    </>
+  ) : null;
+};
 
-export default Modal
+export default Modal;

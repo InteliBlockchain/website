@@ -7,8 +7,8 @@ require("dotenv").config();
 import Maintenance from "../components/Maintenance";
 
 const MyApp = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
-  // return <Maintenance />;
+  // return <Component {...pageProps} />;
+  return <Maintenance />;
 };
 
 export default MyApp;
