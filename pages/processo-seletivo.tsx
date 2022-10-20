@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../axios'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Header from '../components/Header'
@@ -41,7 +41,6 @@ const SelectiveProcess = () => {
     }, [])
 
     useEffect(() => {
-        console.log(watch())
         localStorage.setItem('form', JSON.stringify(watch()))
     }, [watch()])
 
@@ -58,7 +57,7 @@ const SelectiveProcess = () => {
         }
 
         try {
-            const response = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/continue`, {
+            const response = await axios.post(`/Subscription/continue`, {
                 name: data.name,
                 email: router.query.email,
                 bornDate: data.bornDate,
@@ -233,7 +232,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
 
     try {
-        const { data } = await axios.post(`https://inteli-blockchain-server.herokuapp.com/Subscription/Token`, {
+        const { data } = await axios.post(`/Subscription/Token`, {
             token: urlToken,
             email: urlEmail,
         })

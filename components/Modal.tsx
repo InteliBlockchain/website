@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axios";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { alertService } from "../services/alert.service";
@@ -37,7 +37,7 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
 
     try {
       const res = await axios.post(
-        `https://inteli-blockchain-server.herokuapp.com/Subscription/sendConfirmationEmail`,
+        `/Subscription/sendConfirmationEmail`,
         {
           email: data.email,
         }
