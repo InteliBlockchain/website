@@ -75,8 +75,8 @@ const SelectiveProcess = () => {
       console.log(err);
       toast.error(
         'Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ' +
-          err.response.data +
-          '\n\n\nSe não tiver se cadastrado, vá para a Home e tente novamente.'
+        err.response.data +
+        '\n\n\nSe não tiver se cadastrado, vá para a Home e tente novamente.'
       );
       setDisabled(false);
       setButtonText('Enviar');
@@ -220,11 +220,10 @@ const SelectiveProcess = () => {
 
             <div className="flex flex-col items-center">
               <button
-                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
-                  disable
+                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${disable
                     ? 'cursor-not-allowed bg-red-600 text-white'
                     : 'bg-gradient'
-                }`}
+                  }`}
                 disabled={disable}
               >
                 <input type="submit" value={buttonText} />

@@ -26,3 +26,8 @@ export type dataModel = {
   why: string;
   about: string;
 };
+
+export type adminModel = {
+  email: string;
+  token: string;
+};
