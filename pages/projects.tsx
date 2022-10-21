@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Layout from "../components/Layout";
-import { CardProps } from "../interfaces";
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import Header from '@components/Header';
+import Layout from '@components/Layout';
+import { CardProps } from '@typescript/interfaces';
 
 const Card = ({
   title,
-  desc = "",
-  link = "https://github.com/InteliBlockchain",
+  desc = '',
+  link = 'https://github.com/InteliBlockchain'
 }: CardProps) => {
   return (
     <Link href={link}>
@@ -31,21 +31,21 @@ const Projects = () => {
   useEffect(() => {
     setProjects([
       {
-        title: "Inteli ID",
+        title: 'Inteli ID',
         description:
-          "Já pensou como seria ter todo seu currículo de estudante em uma blockchain? Esse foi o projeto realizado com a parceria do Inteli",
-        link: "https://github.com/InteliBlockchain/projeto_inteli",
+          'Já pensou como seria ter todo seu currículo de estudante em uma blockchain? Esse foi o projeto realizado com a parceria do Inteli',
+        link: 'https://github.com/InteliBlockchain/projeto_inteli'
       },
       {
-        title: "Our Neighbours",
+        title: 'Our Neighbours',
         description:
-          "Fazer doações para outro país parece meio enviável...certo? Errado! Com o Our Neighbours, projeto desenvolvido no hackathon Ethereum SP, isso se tornou mais fácil e prático. ",
-        link: "https://our-neighbors.herokuapp.com/",
+          'Fazer doações para outro país parece meio enviável...certo? Errado! Com o Our Neighbours, projeto desenvolvido no hackathon Ethereum SP, isso se tornou mais fácil e prático. ',
+        link: 'https://our-neighbors.herokuapp.com/'
       },
       {
-        title: "Em breve...",
-        description: "Mais projetos estão por vir!",
-      },
+        title: 'Em breve...',
+        description: 'Mais projetos estão por vir!'
+      }
     ]);
   }, []);
 
@@ -61,7 +61,7 @@ const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4 justify-items-center">
-          {projects.map((project) => (
+          {projects.map(project => (
             <Card
               title={project.title}
               desc={project.description}

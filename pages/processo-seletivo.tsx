@@ -1,136 +1,149 @@
-import axios from '../axios'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import Header from '../components/Header'
-import Layout from '../components/Layout'
-import { useRouter } from 'next/router'
-import { dataModel } from '../interfaces'
-import { GetServerSideProps } from 'next'
-import { toast } from 'react-toastify'
+import axios from '../axios';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Header from '@components/Header';
+import Layout from '@components/Layout';
+import { useRouter } from 'next/router';
+import { dataModel } from '@typescript/types';
+import { GetServerSideProps } from 'next';
+import { toast } from 'react-toastify';
 
 const SelectiveProcess = () => {
-    const router = useRouter()
+  const router = useRouter();
 
-    const [isDone, setIsDone] = useState('🔲')
+  const [isDone, setIsDone] = useState('🔲');
 
-    const { register, handleSubmit, watch, reset } = useForm<dataModel>()
-    const [data, setData] = useState('')
-    const [buttonText, setButtonText] = useState('Enviar')
-    const [disable, setDisabled] = useState(false)
-  
+  const { register, handleSubmit, watch, reset } = useForm<dataModel>();
+  const [data, setData] = useState('');
+  const [buttonText, setButtonText] = useState('Enviar');
+  const [disable, setDisabled] = useState(false);
 
-    useEffect(() => {
-        const defaultForm = {
-            name: '',
-            bornDate: '',
-            github: '',
-            linkedin: '',
-            skills: '',
-            why: '',
-            about: '',
-        }
+  useEffect(() => {
+    const defaultForm = {
+      name: '',
+      bornDate: '',
+      github: '',
+      linkedin: '',
+      skills: '',
+      why: '',
+      about: ''
+    };
 
-        if (localStorage.getItem('form')) {
-            const form = JSON.parse(localStorage.getItem('form') || JSON.stringify(defaultForm))
-            reset(form)
-        }
-    }, [])
+    if (localStorage.getItem('form')) {
+      const form = JSON.parse(
+        localStorage.getItem('form') || JSON.stringify(defaultForm)
+      );
+      reset(form);
+    }
+  }, []);
 
-    useEffect(() => {
-        localStorage.setItem('form', JSON.stringify(watch()))
-    }, [watch()])
+  useEffect(() => {
+    localStorage.setItem('form', JSON.stringify(watch()));
+  }, [watch()]);
 
-    const onSubmit = async (data: dataModel) => {
-        setDisabled(true)
-        setButtonText('Enviando...')
+  const onSubmit = async (data: dataModel) => {
+    setDisabled(true);
+    setButtonText('Enviando...');
 
-        // checks if the data is valid
-        if (!data) {
-            toast.warn('Preencha todos os campos!')
-            setDisabled(false)
-            setButtonText('Enviar')
-            return
-        }
-
-        try {
-            const response = await axios.post(`/Subscription/continue`, {
-                name: data.name,
-                email: router.query.email,
-                bornDate: data.bornDate,
-                github: data.github,
-                linkedin: data.linkedin,
-                skills: data.skills,
-                why: data.why,
-                about: data.about,
-                token: router.query.token,
-            })
-
-            toast.success('Inscrição realizada com sucesso! Redirecionando...')
-            setIsDone('✅')
-            setTimeout(() => {
-                router.push('/')
-            }, 1500)
-        } catch (err) {
-            console.log(err)
-            toast.error(
-                'Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ' +
-                    err.response.data +
-                    '\n\n\nSe não tiver se cadastrado, vá para a Home e tente novamente.'
-            )
-            setDisabled(false)
-            setButtonText('Enviar')
-        }
+    // checks if the data is valid
+    if (!data) {
+      toast.warn('Preencha todos os campos!');
+      setDisabled(false);
+      setButtonText('Enviar');
+      return;
     }
 
-    return (
-        <Layout title="Inteli Blockchain">
-            <Header selectedPage="processo-seletivo" />
+    try {
+      const response = await axios.post(`/Subscription/continue`, {
+        name: data.name,
+        email: router.query.email,
+        bornDate: data.bornDate,
+        github: data.github,
+        linkedin: data.linkedin,
+        skills: data.skills,
+        why: data.why,
+        about: data.about,
+        token: router.query.token
+      });
 
-            <div className="flex flex-col md:flex-row py-2 justify-around mb-8 w-full lg:w-5/6 mx-auto">
-                {/* Div 1 - Text */}
-                <div className="justify-center pt-8 md:pt-15 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
-                    <div className="md:mx-6 md:my-2 items-center">
-                        <p className="text-6xl md:text-8xl font-bold text-zinc-800 montserrat text-left mb-2">
-                            Processo <span className="montserrat text-gradient font-bold">seletivo 2022.2</span>
-                        </p>
+      toast.success('Inscrição realizada com sucesso! Redirecionando...');
+      setIsDone('✅');
+      setTimeout(() => {
+        router.push('/');
+      }, 1500);
+    } catch (err) {
+      console.log(err);
+      toast.error(
+        'Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ' +
+          err.response.data +
+          '\n\n\nSe não tiver se cadastrado, vá para a Home e tente novamente.'
+      );
+      setDisabled(false);
+      setButtonText('Enviar');
+    }
+  };
 
-                        <div className="text-zinc-800 text-2xl font-bold montserrat text-left">
-                            <p>
-                                ✅ <span className="line-through"> 1º Passo: Cadastre seu email</span>
-                            </p>
-                            <p>{isDone} 2º Passo: Responda o formulário</p>
-                        </div>
-                    </div>
+  return (
+    <Layout title="Inteli Blockchain">
+      <Header selectedPage="processo-seletivo" />
 
-                    <div className="text-6xl md:text-7xl md:mx-6 items-center mt-8">
-                        <p className="montserrat text-lg text-zinc-800">
-                            Participe do processo seletivo do Inteli Blockchain e tenha a oportunidade de aprender mais
-                            sobre o mundo da tecnologia Blockchain e participar dos projetos do clube!
-                        </p>
-                    </div>
-                </div>
+      <div className="flex flex-col md:flex-row py-2 justify-around mb-8 w-full lg:w-5/6 mx-auto">
+        {/* Div 1 - Text */}
+        <div className="justify-center pt-8 md:pt-15 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
+          <div className="md:mx-6 md:my-2 items-center">
+            <p className="text-6xl md:text-8xl font-bold text-zinc-800 montserrat text-left mb-2">
+              Processo{' '}
+              <span className="montserrat text-gradient font-bold">
+                seletivo 2022.2
+              </span>
+            </p>
 
-                {/* Div 2 - Form */}
-                <div className="md:justify-items-center md:pt-8 md:absolute md:right-8 lg:right-32 mx-2 md:mx-0 montserrat md:w-5/12">
-                    <div className="text-5xl md:text-7xl md:mx-4 md:my-2 items-center">
-                        <p className="font-bold text-zinc-800 montserrat text-left">Realize sua inscrição</p>
-                    </div>
+            <div className="text-zinc-800 text-2xl font-bold montserrat text-left">
+              <p>
+                ✅{' '}
+                <span className="line-through">
+                  {' '}
+                  1º Passo: Cadastre seu email
+                </span>
+              </p>
+              <p>{isDone} 2º Passo: Responda o formulário</p>
+            </div>
+          </div>
 
-                    <p>{data}</p>
+          <div className="text-6xl md:text-7xl md:mx-6 items-center mt-8">
+            <p className="montserrat text-lg text-zinc-800">
+              Participe do processo seletivo do Inteli Blockchain e tenha a
+              oportunidade de aprender mais sobre o mundo da tecnologia
+              Blockchain e participar dos projetos do clube!
+            </p>
+          </div>
+        </div>
 
-                    <form className="mx-2 md:mx-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
-                        <p className="font-semibold text-lg text-gradient">Seu nome completo: *</p>
-                        {/* {errors?.name && <p className="text-sm text-red-700">{errors.name.message}</p>} */}
-                        <input
-                            type="text"
-                            placeholder="Nome completo"
-                            {...register('name', { required: true, maxLength: 100 })}
-                            className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-                        />
+        {/* Div 2 - Form */}
+        <div className="md:justify-items-center md:pt-8 md:absolute md:right-8 lg:right-32 mx-2 md:mx-0 montserrat md:w-5/12">
+          <div className="text-5xl md:text-7xl md:mx-4 md:my-2 items-center">
+            <p className="font-bold text-zinc-800 montserrat text-left">
+              Realize sua inscrição
+            </p>
+          </div>
 
-                        {/* <p className="font-semibold text-lg text-gradient">Email: *</p> */}
-                        {/* {errors?.email && <p className="text-sm text-red-700">{errors.email.message}</p>} */}
-                        {/* <input
+          <p>{data}</p>
+
+          <form className="mx-2 md:mx-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
+            <p className="font-semibold text-lg text-gradient">
+              Seu nome completo: *
+            </p>
+            {/* {errors?.name && <p className="text-sm text-red-700">{errors.name.message}</p>} */}
+            <input
+              type="text"
+              placeholder="Nome completo"
+              {...register('name', { required: true, maxLength: 100 })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
+
+            {/* <p className="font-semibold text-lg text-gradient">Email: *</p> */}
+            {/* {errors?.email && <p className="text-sm text-red-700">{errors.email.message}</p>} */}
+            {/* <input
               type="email"
               placeholder="Email"
               value={
@@ -141,101 +154,114 @@ const SelectiveProcess = () => {
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             /> */}
 
-                        <p className="font-semibold text-lg text-gradient">Data de nascimento: *</p>
-                        {/* {errors?.bornDate && <p className="text-sm text-red-700">{errors.bornDate.message}</p>} */}
-                        <input
-                            type="date"
-                            placeholder="Data de nascimento"
-                            {...register('bornDate', {
-                                required: true,
-                                pattern: /^\d{4}-\d{2}-\d{2}$/i,
-                            })}
-                            className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-                            pattern="\d{2}/\d{2}/\d{4}"
-                        />
+            <p className="font-semibold text-lg text-gradient">
+              Data de nascimento: *
+            </p>
+            {/* {errors?.bornDate && <p className="text-sm text-red-700">{errors.bornDate.message}</p>} */}
+            <input
+              type="date"
+              placeholder="Data de nascimento"
+              {...register('bornDate', {
+                required: true,
+                pattern: /^\d{4}-\d{2}-\d{2}$/i
+              })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+              pattern="\d{2}/\d{2}/\d{4}"
+            />
 
-                        <p className="font-semibold text-lg text-gradient">Link do seu Github:</p>
-                        {/* {errors?.github && <p className="text-sm text-red-700">{errors.github.message}</p>} */}
-                        <input
-                            type="text"
-                            placeholder="Seu github"
-                            {...register('github', { required: false })}
-                            className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-                        />
+            <p className="font-semibold text-lg text-gradient">
+              Link do seu Github:
+            </p>
+            {/* {errors?.github && <p className="text-sm text-red-700">{errors.github.message}</p>} */}
+            <input
+              type="text"
+              placeholder="Seu github"
+              {...register('github', { required: false })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
 
-                        <p className="font-semibold text-lg text-gradient">Link do seu Linkedin:</p>
-                        <input
-                            type="text"
-                            placeholder="Seu linkedin"
-                            {...register('linkedin', { required: false })}
-                            className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-                        />
+            <p className="font-semibold text-lg text-gradient">
+              Link do seu Linkedin:
+            </p>
+            <input
+              type="text"
+              placeholder="Seu linkedin"
+              {...register('linkedin', { required: false })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
 
-                        <p className="font-semibold text-lg text-gradient">
-                            Quais habilidades você gostaria de destacar? (técnicas ou não) *
-                        </p>
-                        <textarea
-                            placeholder="Exemplo: Tenho experiência com desenvolvimento web, e estou aprendendo sobre blockchain..."
-                            {...register('skills', { required: true })}
-                            className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-                        />
+            <p className="font-semibold text-lg text-gradient">
+              Quais habilidades você gostaria de destacar? (técnicas ou não) *
+            </p>
+            <textarea
+              placeholder="Exemplo: Tenho experiência com desenvolvimento web, e estou aprendendo sobre blockchain..."
+              {...register('skills', { required: true })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
 
-                        <p className="font-semibold text-lg text-gradient">Por que deseja entrar no grupo? *</p>
-                        <textarea
-                            placeholder="Exemplo: Gostaria de aprender mais sobre blockchain e participar de projetos..."
-                            {...register('why', { required: true })}
-                            className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-                        />
+            <p className="font-semibold text-lg text-gradient">
+              Por que deseja entrar no grupo? *
+            </p>
+            <textarea
+              placeholder="Exemplo: Gostaria de aprender mais sobre blockchain e participar de projetos..."
+              {...register('why', { required: true })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
 
-                        <p className="font-semibold text-lg text-gradient">
-                            Conte um pouco de você. Como você chegou até o Inteli? O que você pretende realizar
-                            estudando aqui?... *
-                        </p>
-                        <textarea
-                            placeholder="Exemplo: Sou da cidade de São Paulo, e acabei conhecendo o Inteli por meio de um amigo..."
-                            {...register('about', { required: true })}
-                            className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
-                        />
+            <p className="font-semibold text-lg text-gradient">
+              Conte um pouco de você. Como você chegou até o Inteli? O que você
+              pretende realizar estudando aqui?... *
+            </p>
+            <textarea
+              placeholder="Exemplo: Sou da cidade de São Paulo, e acabei conhecendo o Inteli por meio de um amigo..."
+              {...register('about', { required: true })}
+              className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
+            />
 
-                        <div className="flex flex-col items-center">
-                            <button
-                                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
-                                    disable ? 'cursor-not-allowed bg-red-600 text-white' : 'bg-gradient'
-                                }`}
-                                disabled={disable}>
-                                <input type="submit" value={buttonText} />
-                            </button>
-                        </div>
-                    </form>
-                </div>
+            <div className="flex flex-col items-center">
+              <button
+                className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
+                  disable
+                    ? 'cursor-not-allowed bg-red-600 text-white'
+                    : 'bg-gradient'
+                }`}
+                disabled={disable}
+              >
+                <input type="submit" value={buttonText} />
+              </button>
             </div>
-        </Layout>
-    )
-}
+          </form>
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
 // This gets called on every request
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    let urlToken = ctx.query.token
-    let urlEmail = ctx.query.email
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  let urlToken = ctx.query.token;
+  let urlEmail = ctx.query.email;
 
-    const redirect = (errorMessage: string) => {
-        ctx.res.writeHead(301, { Location: '/?tokenError=true&errorMessage=' + errorMessage })
-        ctx.res.end()
-        // Pass data to the page via props
-        return
-    }
-
-    try {
-        await axios.post(`/Subscription/Token`, {
-            token: urlToken,
-            email: urlEmail,
-        })
-    } catch (err) {
-        redirect(err.response.data)
-    }
-
+  const redirect = (errorMessage: string) => {
+    ctx.res.writeHead(301, {
+      Location: '/?tokenError=true&errorMessage=' + errorMessage
+    });
+    ctx.res.end();
     // Pass data to the page via props
-    return { props: {} }
-}
+    return;
+  };
 
-export default SelectiveProcess
+  try {
+    await axios.post(`/Subscription/Token`, {
+      token: urlToken,
+      email: urlEmail
+    });
+  } catch (err) {
+    redirect(err.response.data);
+  }
+
+  // Pass data to the page via props
+  return { props: {} };
+};
+
+export default SelectiveProcess;

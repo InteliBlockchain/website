@@ -1,7 +1,7 @@
-import Head from "next/head";
-import Layout from "./Layout";
-import Image from "next/image";
-import MaintenanceIcon from "../assets/optimize.png";
+import Head from 'next/head';
+import Layout from './Layout';
+import Image from 'next/image';
+import MaintenanceIcon from '@assets/optimize.png';
 
 const Maintenance = () => {
   return (

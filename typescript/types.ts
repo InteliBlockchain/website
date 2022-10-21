@@ -1,9 +1,3 @@
-// You can include shared interfaces/types in a separate file
-// and then use them in any component by importing them. For
-// example, to import the interface below do:
-//
-// import { User } from 'path/to/interfaces';
-
 import { ReactNode } from "react";
 
 export type User = {
@@ -32,18 +26,3 @@ export type dataModel = {
   why: string;
   about: string;
 };
-
-export interface FooterProps {
-  hide: boolean;
-}
-
-export interface UserProps {
-  id: string;
-  name: string;
-}
-
-export interface CardProps {
-  title: string;
-  desc?: string;
-  link?: string;
-}
