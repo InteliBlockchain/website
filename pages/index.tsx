@@ -16,7 +16,7 @@ const IndexPage = () => {
   useEffect(() => {
     if (!Router.isReady) return;
 
-    if (Router.query.tokenError && Router.query.errorMessage) {
+    if (Router.query.tokenError && Router.query.errorMessage && Router.query.errorMessage != '[object Object]') {
       toast.error('Error: ' + Router.query.errorMessage);
     }
   }, [Router.isReady]);

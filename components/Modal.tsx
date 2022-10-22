@@ -51,7 +51,6 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
       setButtonText('Enviar');
     }
   };
-  console.log(errors);
 
   return isOpened ? (
     <>
