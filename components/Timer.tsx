@@ -38,22 +38,18 @@ const Timer = () => {
     };
   }, [dateDiff]);
 
-  if (
-    dateDiff.days === 0 &&
-    dateDiff.hours === 0 &&
-    dateDiff.minutes === 0 &&
-    dateDiff.seconds === 0
-  ) {
-    return <p>Inscrições encerradas!</p>;
-  }
-
-  return dateDiff.days < 0 ? (
+  return dateDiff.days > 0 ? (
     <span>
       Faltam {dateDiff.days} dias, {dateDiff.hours} horas, {dateDiff.minutes}{' '}
       minutos e {dateDiff.seconds} segundos...
     </span>
+  ) : dateDiff.days === 0 &&
+    dateDiff.hours === 0 &&
+    dateDiff.minutes === 0 &&
+    dateDiff.seconds === 0 ? (
+    <p>Inscrições encerradas!</p>
   ) : (
-    <span>Inscrições encerradas!</span>
+    <p>Inscrições encerradas!</p>
   );
 };
 
