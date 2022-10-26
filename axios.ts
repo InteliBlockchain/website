@@ -5,6 +5,4 @@ const instance: any
         baseURL: process.env.NEXT_PUBLIC_SERVER_URL
     })
 
-console.log(instance)
-
 export default instance

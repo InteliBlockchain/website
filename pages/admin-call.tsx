@@ -47,7 +47,6 @@ const Admin = () => {
       setButtonText('Enviar');
       toast.success('Mensagem Enviada com sucesso! Verifique seu email');
     } catch (err) {
-      console.log(err);
       toast.error(
         'Erro ao realizar envio.\nErro: ' +
         err.response.data
@@ -72,7 +71,7 @@ const Admin = () => {
     setCookie("token", data.token);
     toast.success('Cookie definido com sucesso');
     setTimeout(() => {
-      router.push('/admin');
+      router.push(`/admin`)
     }, 2000);
   };
 

@@ -16,7 +16,7 @@ const Timer = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const dateNow = new Date();
-      const dateFuture = new Date(2022, 9, 26, 0, 0, 0);
+      const dateFuture = new Date(2022, 9, 26, 0, 30, 0);
 
       const diff = dateFuture.getTime() - dateNow.getTime();
 
@@ -44,7 +44,7 @@ const Timer = () => {
     dateDiff.minutes === 0 &&
     dateDiff.seconds === 0
   ) {
-    return <p>Inscrições encerradas</p>;
+    return <p>Inscrições encerradas!</p>;
   }
 
   return (

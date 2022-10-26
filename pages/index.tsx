@@ -57,7 +57,7 @@ const IndexPage = () => {
                 Blockchain e participar dos projetos do clube!
               </p>
               <p className="montserrat text-lg text-zinc-800">
-                Inscrições até dia 25/10/2022 às 23:59! <Timer />
+                Inscrições até dia 26/10/2022 às 12:00! <Timer />
               </p>
             </div>
 
