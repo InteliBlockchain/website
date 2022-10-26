@@ -64,7 +64,9 @@ const IndexPage = () => {
             <div className=" md:mx-6 md:my-2 justify-center md:justify-start flex mt-2">
               <div className="cursor-pointer">
                 <Button
-                  onClick={() => setModalVisible(!modalVisible)}
+                  onClick={() => 
+                    toast.error('Inscrições encerradas! Aguarde os resultados.')
+                  }
                   className={''}
                 />
               </div>
