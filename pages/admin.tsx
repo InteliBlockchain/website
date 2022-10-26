@@ -39,7 +39,7 @@ const Admin = () => {
   const deleteSub = async (id: string) => {};
 
   return (
-    <Layout>
+    <Layout title="Admin">
       <div className="flex flex-col p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto">
         <div className="grid grid-col-1 justify-items-center md:pt-24 montserrat">
           <div className="md:mx-6 md:mt-2 items-center mb-16">

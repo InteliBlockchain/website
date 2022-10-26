@@ -84,7 +84,7 @@ const Admin = () => {
   const deleteSub = async (id: string) => { };
 
   return (
-    <Layout>
+    <Layout title="Admin - Validação"> 
       <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto inset-0">
         {/* Div 1 - Text */}
         <div className="justify-center pt-8 md:pt-15 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
