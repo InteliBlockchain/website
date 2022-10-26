@@ -28,15 +28,23 @@ const Admin = () => {
     return data;
   };
 
+  console.log(data);
+
   useEffect(() => {
     loadSubscriptions();
-
   }, []);
-  console.log(data[0]);
 
-  const onReload = async () => {};
-
-  const deleteSub = async (id: string) => {};
+  const toggleSubscription = async (id: string) => {
+    try {
+      await axios.post(`/Admin/toggleSub/${id}`, {
+        token: cookie.token,
+      });
+      toast.success('Inscrição atualizada com sucesso!');
+      loadSubscriptions();
+    } catch (err) {
+      toast.error('Erro ao atualizar inscrição.');
+    }
+  };
 
   return (
     <Layout title="Admin">
@@ -64,9 +72,12 @@ const Admin = () => {
                 why: string;
                 about: string;
                 subscriptionId: string;
+                approved?: string;
               }) => (
                 <div
-                  className="flex flex-col mb-8 w-full md:w-4/5 shadow-xl p-4 bg-white rounded-lg"
+                  className={`flex flex-col mb-8 w-full md:w-4/5 shadow-xl p-4 bg-white rounded-lg ${
+                    sub.approved == "Pendente" ? "border-2 border-yellow-500" : sub.approved == "Aprovado" ? "border-2 border-green-500" : "border-2 border-red-500"
+                  }`}
                   key={sub.subscriptionId}
                 >
                   <p className="text-xl font-bold text-zinc-800 mb-4">
@@ -74,6 +85,20 @@ const Admin = () => {
                     <span className="text-lg font-normal text-zinc-800">
                       {sub.email}
                     </span>
+                    <br />
+                    {sub.approved == 'Pendente' ? (
+                      <span className={`text-lg font-normal text-yellow-500`}>
+                        Em análise...
+                      </span>
+                    ) : sub.approved == 'Aprovado' ? (
+                      <span className={`text-lg font-normal text-green-500`}>
+                        Aprovado!
+                      </span>
+                    ) : (
+                      <span className={`text-lg font-normal text-red-500`}>
+                        Reprovado!
+                      </span>
+                    )}
                   </p>
 
                   <p className="text-md text-zinc-800 mb-4">
@@ -114,6 +139,19 @@ const Admin = () => {
                       </a>
                     ) : null}
                   </div>
+
+                  <div className="flex flex-row justify-center mt-4">
+                    <button
+                      className="bg-gradient w-full text-white font-bold py-2 px-4 rounded"
+                      onClick={() => toggleSubscription(sub.subscriptionId)}
+                    >
+                      {sub.approved == 'Pendente'
+                        ? 'Aprovar'
+                        : sub.approved == 'Aprovado'
+                        ? 'Reprovar'
+                        : 'Aprovar'}
+                    </button>
+                  </div>
                 </div>
               )
             )
@@ -129,8 +167,6 @@ const Admin = () => {
 // This gets called on every request
 export const getServerSideProps: GetServerSideProps = async ctx => {
   let cookieToken = ctx.req.cookies['token'];
-
-  console.log(cookieToken);
 
   const redirect = (errorMessage: string) => {
     ctx.res.writeHead(301, {
