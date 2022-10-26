@@ -39,7 +39,7 @@ const Admin = () => {
     }
 
     try {
-      const response = await axios.post(`/Subscription/callAdm`, {
+      const response = await axios.post(`/Admin/callAdm`, {
         email: data.email
       });
       setAlreadyMailed(true)

@@ -9,46 +9,48 @@ import Linkedin from '@assets/Linkedin';
 import { GetServerSideProps } from 'next';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { useCookies } from 'react-cookie';
 
 // require('dotenv').config()
 
 const Admin = () => {
   const [data, setData] = useState([]);
+  const [cookie, setCookie] = useCookies(['token']);
 
-  const loadSubscriptions = async () => { };
+  const loadSubscriptions = async () => {
+    try {
+      const response = await axios.get(`/Admin/getSubs/${cookie.token}`);
+      setData(response.data);
+    } catch (err) {
+      toast.error('Erro ao carregar inscrições.');
+    }
 
-  useEffect(() => { }, []);
+    return data;
+  };
 
-  const onReload = async () => { };
+  useEffect(() => {
+    loadSubscriptions();
 
-  const deleteSub = async (id: string) => { };
+  }, []);
+  console.log(data[0]);
+
+  const onReload = async () => {};
+
+  const deleteSub = async (id: string) => {};
 
   return (
     <Layout>
-      <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto inset-0">
-        {/* Div 1 - Text */}
-        <div className="justify-center pt-8 md:pt-64 md:fixed w-full md:w-1/2 lg:w-1/2 md:left-8 lg:left-32 mb-8 md:mb-0 px-2 inset-0 h-full">
-          <div className="md:mx-6 md:my-2 items-center">
+      <div className="flex flex-col p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto">
+        <div className="grid grid-col-1 justify-items-center md:pt-24 montserrat">
+          <div className="md:mx-6 md:mt-2 items-center mb-16">
             <p className="font-bold text-zinc-800 montserrat text-left text-6xl md:text-7xl">
               Inscritos{' '}
               <span className="montserrat text-gradient font-bold">
                 no processo seletivo 2022.2
               </span>
             </p>
-            {/* Refresh button */}
-            <a>
-              <button
-                className="text-lg mt-2 bg-gradient text-white font-bold p-2 rounded-md"
-                onClick={onReload}
-              >
-                Atualizar
-              </button>
-            </a>
           </div>
-        </div>
 
-        {/* Div 2 - Image */}
-        <div className="grid grid-col-1 justify-items-center md:pt-24 md:absolute md:right-8 lg:right-32 px-2 montserrat md:w-1/2">
           {data.length > 0 ? (
             data.map(
               (sub: {
@@ -61,66 +63,56 @@ const Admin = () => {
                 skills: string;
                 why: string;
                 about: string;
+                subscriptionId: string;
               }) => (
                 <div
-                  className="flex flex-col mb-8 w-full md:w-4/5"
-                  key={sub.email}
+                  className="flex flex-col mb-8 w-full md:w-4/5 shadow-xl p-4 bg-white rounded-lg"
+                  key={sub.subscriptionId}
                 >
-                  <p className="text-xl font-bold text-zinc-800 mb-2">
+                  <p className="text-xl font-bold text-zinc-800 mb-4">
                     {sub.name},{' '}
                     <span className="text-lg font-normal text-zinc-800">
                       {sub.email}
                     </span>
                   </p>
 
-                  <a>
-                    <button
-                      className="text-md mb-2 bg-red-600 text-white font-bold p-2 rounded-md"
-                      onClick={() => {
-                        deleteSub(sub._id);
-                      }}
-                    >
-                      Deletar
-                    </button>
-                  </a>
-
-                  <a>
-                    <button
-                      className="text-md mb-2 bg-red-600 text-white font-bold p-2 rounded-md"
-                      onClick={() => {
-                        deleteSub(sub.email);
-                      }}
-                    >
-                      Deletar
-                    </button>
-                  </a>
-
-                  <p className="text-md text-zinc-800 mb-2">
-                    Data de nascimento: {sub.bornDate} |{' '}
+                  <p className="text-md text-zinc-800 mb-4">
+                    <b>Data de nascimento:</b>{' '}
+                    {new Date(sub.bornDate).toLocaleDateString('pt-BR')} |{' '}
                     {new Date().getFullYear() -
                       new Date(sub.bornDate).getFullYear()}{' '}
                     anos
                   </p>
 
-                  <p className="text-md text-zinc-800 mb-2">
-                    Habilidades:
+                  <p className="text-md text-zinc-800 mb-4">
+                    <b>Habilidades:</b>
                     <br />
                     {sub.skills}
                   </p>
 
-                  <p className="text-md text-zinc-800 mb-2">
-                    Por que quer participar do clube?
+                  <p className="text-md text-zinc-800 mb-4">
+                    <b>Por que quer participar do clube?:</b>
                     <br />
                     {sub.why}
                   </p>
 
+                  <p className="text-md text-zinc-800 mb-4">
+                    <b>Conte-nos um pouco sobre você:</b>
+                    <br />
+                    {sub.about}
+                  </p>
+
                   <div className="text-md text-zinc-800 flex flex-row">
-                    <a href={sub.github} target="_blank" className="mr-4">
-                      <Github />
-                    </a>
-                    <a href={sub.linkedin} target="_blank">
-                      <Linkedin />
-                    </a>
+                    {sub.github ? (
+                      <a href={sub.github} target="_blank" className="mr-4">
+                        <Github />
+                      </a>
+                    ) : null}
+                    {sub.linkedin ? (
+                      <a href={sub.linkedin} target="_blank">
+                        <Linkedin />
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               )
@@ -138,7 +130,7 @@ const Admin = () => {
 export const getServerSideProps: GetServerSideProps = async ctx => {
   let cookieToken = ctx.req.cookies['token'];
 
-  console.log(cookieToken)
+  console.log(cookieToken);
 
   const redirect = (errorMessage: string) => {
     ctx.res.writeHead(301, {
