@@ -47,11 +47,13 @@ const Timer = () => {
     return <p>Inscrições encerradas!</p>;
   }
 
-  return (
+  return dateDiff.days < 0 ? (
     <span>
       Faltam {dateDiff.days} dias, {dateDiff.hours} horas, {dateDiff.minutes}{' '}
       minutos e {dateDiff.seconds} segundos...
     </span>
+  ) : (
+    <span>Inscrições encerradas!</span>
   );
 };
 
