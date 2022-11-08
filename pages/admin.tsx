@@ -103,7 +103,9 @@ const Candidate = ({
 
       {sub.approved && sub.feedback && sub.approved != 'Pendente' ? (
         <>
-          <p className='text-md text-zinc-800 mb-2 font-bold' >Feedback do candidato:</p>
+          <p className="text-md text-zinc-800 mb-2 font-bold">
+            Feedback do candidato:
+          </p>
           <div
             className={`${
               sub.approved == 'Aprovado' ? 'bg-green-100' : 'bg-red-100'
@@ -129,6 +131,7 @@ const Candidate = ({
 const Admin = () => {
   const [data, setData] = useState([]);
   const [cookie, setCookie] = useCookies(['token']);
+  const [password, setPassword] = useState('');
 
   const loadSubscriptions = async () => {
     try {
@@ -148,6 +151,12 @@ const Admin = () => {
   const toggleModal = (sub: Sub) => {
     setIsOpened(!isOpened);
     setSub(sub);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   };
 
   const [isOpened, setIsOpened] = useState(false);
@@ -161,6 +170,18 @@ const Admin = () => {
     about: '',
     subscriptionId: ''
   });
+
+  const sendEmails = async () => {
+    try {
+      if (password == 'pedrinho123456') {
+        await axios.post(`/Admin/sendResultEmails/${cookie.token}`);
+      } else {
+        toast.error('Senha incorreta.');
+      }
+    } catch (err) {
+      toast.error('Erro ao enviar emails.');
+    }
+  };
 
   return (
     <>
@@ -214,6 +235,22 @@ const Admin = () => {
             ) : (
               <p>Não há inscritos</p>
             )}
+
+            <div className="flex flex-row justify-center mt-4 w-4/5">
+              <input
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Senha"
+                className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-l-lg py-2 px-4 block w-full appearance-none leading-normal"
+              />
+
+              <button
+                className="bg-gradient w-1/3 text-white font-bold py-2 px-4 rounded-r"
+                onClick={sendEmails}
+              >
+                Disparar emails
+              </button>
+            </div>
           </div>
         </div>
       </Layout>
@@ -273,7 +310,10 @@ const Modal = ({
   };
 
   return isOpened ? (
-    <div className="z-30 top-[65%] sm:top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute modal-content min-w-[40%] bg-white w-11/12 sm:w-5/6 md:w-2/3 mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-fit mb-8">
+    <div
+      className="z-30 top-[65%] sm:top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute modal-content min-w-[40%] bg-white w-11/12 sm:w-5/6 md:w-2/3 mx-auto rounded shadow-lg py-8 text-left px-6 inset-0 h-fit mb-8"
+      id="modal"
+    >
       <div className="relative modal-header flex flex-col md:flex-row items-start md:mb-8">
         <button
           className="text-[20px] transition scale-125 hover:scale-150 text-2xl align-center cursor-pointer alert-del"
@@ -365,7 +405,7 @@ const Modal = ({
                 {...register('feedback', { required: true })}
                 value={rejectedFeadback}
                 onChange={e => setRejectedFeadback(e.target.value)}
-              ></textarea>
+              />
             </div>
           ) : null}
 
