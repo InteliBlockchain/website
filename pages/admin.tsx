@@ -137,6 +137,16 @@ const Admin = () => {
     try {
       const response = await axios.get(`/Admin/getSubs/${cookie.token}`);
       setData(response.data);
+
+      // check if all of the subs have been approved or rejected
+      let allApproved = true;
+      response.data.forEach((sub: Sub) => {
+        if (sub.approved == 'Pendente') {
+          allApproved = false;
+        }
+      });
+
+      setAllowSendMail(allApproved);
     } catch (err) {
       toast.error('Erro ao carregar inscrições.');
     }
@@ -170,6 +180,8 @@ const Admin = () => {
     about: '',
     subscriptionId: ''
   });
+
+  const [allowSendMail, setAllowSendMail] = useState(false);
 
   const sendEmails = async () => {
     try {
@@ -236,22 +248,29 @@ const Admin = () => {
               <p>Não há inscritos</p>
             )}
 
-            <div className="flex flex-row justify-center mt-4 w-4/5">
-              <input
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="Senha"
-                className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-l-lg py-2 px-4 block w-full appearance-none leading-normal"
-              />
+            {allowSendMail ? (
+              <>
+                <p className="text-md text-zinc-800 text-start font-bold">
+                  Enviar emails:
+                </p>
+                <div className="flex flex-row justify-center mt-4 w-full">
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="Digite a senha... (muito dificil)"
+                    className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-l-lg py-2 px-4 block w-full appearance-none leading-normal"
+                  />
 
-              <button
-                className="bg-gradient w-1/3 text-white font-bold py-2 px-4 rounded-r"
-                onClick={sendEmails}
-              >
-                Disparar emails
-              </button>
-            </div>
+                  <button
+                    className="bg-gradient w-1/3 text-white font-bold py-2 px-4 rounded-r"
+                    onClick={sendEmails}
+                  >
+                    Disparar emails
+                  </button>
+                </div>
+              </>
+            ) : null}
           </div>
         </div>
       </Layout>
