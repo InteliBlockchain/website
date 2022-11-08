@@ -174,7 +174,7 @@ const Admin = () => {
   const sendEmails = async () => {
     try {
       if (password == 'pedrinho123456') {
-        await axios.post(`/Admin/sendResultEmails/${cookie.token}`);
+        await axios.get(`/Admin/sendResultEmails/${cookie.token}`);
       } else {
         toast.error('Senha incorreta.');
       }
@@ -238,6 +238,7 @@ const Admin = () => {
 
             <div className="flex flex-row justify-center mt-4 w-4/5">
               <input
+                type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Senha"
