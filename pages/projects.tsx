@@ -4,6 +4,8 @@ import Header from '@components/Header';
 import Layout from '@components/Layout';
 import { CardProps } from '@typescript/interfaces';
 
+import useTranslation from 'next-translate/useTranslation';
+
 const Card = ({
   title,
   desc = '',
@@ -28,18 +30,18 @@ const Card = ({
 const Projects = () => {
   const [projects, setProjects] = useState<any[]>([]);
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     setProjects([
       {
         title: 'Inteli ID',
-        description:
-          'Já pensou como seria ter todo seu currículo de estudante em uma blockchain? Esse foi o projeto realizado com a parceria do Inteli',
+        description: t('common:projectDescription1'),
         link: 'https://github.com/InteliBlockchain/projeto_inteli'
       },
       {
         title: 'Our Neighbours',
-        description:
-          'Fazer doações para outro país parece meio enviável...certo? Errado! Com o Our Neighbours, projeto desenvolvido no hackathon Ethereum SP, isso se tornou mais fácil e prático. ',
+        description: t('common:projectDescription2'),
         link: 'https://our-neighbors.herokuapp.com/'
       },
       {
@@ -56,7 +58,7 @@ const Projects = () => {
       <div className="flex flex-col pt-8 p-2 mb-8 w-full lg:w-5/6 mx-auto">
         <div className="text-6xl md:text-7xl md:mb-8 p-0 mb-4">
           <p className="montserrat text-gradient font-bold text-left">
-            Projetos
+            {t('common:projects')}
           </p>
         </div>
 

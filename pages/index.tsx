@@ -9,9 +9,13 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Timer from '@components/Timer';
 
+import useTranslation from 'next-translate/useTranslation';
+
 const IndexPage = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const Router = useRouter();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!Router.isReady) return;
@@ -33,9 +37,8 @@ const IndexPage = () => {
       />
       <div
         onClick={() => setModalVisible(false)}
-        className={`modal absolute md:fixed w-full min-h-screen h-full flex flex-1 top-0 items-center justify-center bg-black bg-opacity-70 z-20 inset-0 ${
-          modalVisible ? '' : 'hidden'
-        }`}
+        className={`modal absolute md:fixed w-full min-h-screen h-full flex flex-1 top-0 items-center justify-center bg-black bg-opacity-70 z-20 inset-0 ${modalVisible ? '' : 'hidden'
+          }`}
       ></div>
 
       <Layout title="Inteli Blockchain" hide={false}>
@@ -47,21 +50,20 @@ const IndexPage = () => {
             <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
               <div>
                 <p className="font-bold text-zinc-800 montserrat text-left">
-                  Participe do nosso{' '}
+                  {t('common:Process1')}{' '}
                 </p>
                 <span className="montserrat text-gradient font-bold">
-                  processo seletivo!
+                  {t('common:Process2')}
                 </span>
               </div>
             </div>
 
             <div className="text-6xl md:text-7xl md:mx-6 items-center md:w-1/2 my-8">
               <p className="montserrat text-lg text-zinc-800 mb-2">
-                É a sua chance de aprender mais sobre o mundo da tecnologia
-                Blockchain e participar dos projetos do clube!
+                {t('common:oport')}
               </p>
               <p className="montserrat text-lg text-zinc-800">
-                Inscrições até dia 26/10/2022 às 00:30! <Timer />
+                {t('common:time')}<Timer />
               </p>
             </div>
 

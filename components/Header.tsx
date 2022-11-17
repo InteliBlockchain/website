@@ -4,7 +4,12 @@ import Image from 'next/image';
 import InteliBlockchain from '@assets/InteliBlockchain.jsx';
 import { HeaderProps } from '@typescript/types';
 
+import useTranslation from 'next-translate/useTranslation';
+
 const Header = ({ selectedPage }: HeaderProps) => {
+
+  const { t } = useTranslation();
+
   return (
     <header className="flex-1 w-full py-4 lg:px-2 justify-center items-center fixed top-0 z-10 bg">
       <nav className="p-2 w-full md:w-5/6 mx-auto flex flex-col justify-between md:flex-row items-center">
@@ -17,9 +22,8 @@ const Header = ({ selectedPage }: HeaderProps) => {
         <div className="flex montserrat font-semibold text-md items-center md:mt-0 mt-6 text-sm md:text-lg">
           <Link href="/">
             <a
-              className={`${
-                selectedPage == 'Home' ? 'border-b-orange-400 border-b-2' : ''
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear`}
+              className={`${selectedPage == 'Home' ? 'border-b-orange-400 border-b-2' : ''
+                } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear`}
             >
               Home
             </a>
@@ -27,25 +31,23 @@ const Header = ({ selectedPage }: HeaderProps) => {
 
           <Link href="/about">
             <a
-              className={`${
-                selectedPage == 'Sobre nós'
-                  ? 'border-b-orange-400 border-b-2'
-                  : ''
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
+              className={`${selectedPage == 'Sobre nós'
+                ? 'border-b-orange-400 border-b-2'
+                : ''
+                } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
-              Sobre nós
+              {t('common:about')}
             </a>
           </Link>
 
           <Link href="/projects">
             <a
-              className={`${
-                selectedPage == 'Projetos'
-                  ? 'border-b-orange-400 border-b-2'
-                  : ''
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
+              className={`${selectedPage == 'Projetos'
+                ? 'border-b-orange-400 border-b-2'
+                : ''
+                } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
-              Projetos
+              {t('common:projects')}
             </a>
           </Link>
 
@@ -63,13 +65,12 @@ const Header = ({ selectedPage }: HeaderProps) => {
 
           <Link href="/contact">
             <a
-              className={`${
-                selectedPage == 'Contato'
-                  ? 'border-b-orange-400 border-b-2'
-                  : ''
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
+              className={`${selectedPage == 'Contato'
+                ? 'border-b-orange-400 border-b-2'
+                : ''
+                } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
-              Contato
+              {t('common:contact')}
             </a>
           </Link>
         </div>
