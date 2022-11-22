@@ -4,7 +4,7 @@
         "en",
         "pt-br"
     ],
-    "defaultLocale": "en",
+    "defaultLocale": "pt-br",
     "localeDetection": true,
     "pages": {
         "*": [

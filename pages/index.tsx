@@ -64,9 +64,6 @@ const IndexPage = () => {
               <p className="montserrat text-lg text-zinc-800 mb-2">
                 {t('common:oport')}
               </p>
-              <p className="montserrat text-lg text-zinc-800">
-                {t('common:time')}<Timer />
-              </p>
             </div>
 
             <div className="md:mx-6 md:mt-2 justify-center md:justify-start flex mt-2 w-1/3 mx-auto">
