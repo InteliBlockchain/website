@@ -11,4 +11,5 @@ export interface CardProps {
   title: string;
   desc?: string;
   link?: string;
+  image?: string;
 }

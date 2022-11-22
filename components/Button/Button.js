@@ -70,7 +70,7 @@ export default function Button({className, onClick}) {
           variants={{ hover: { scale: 0.85 }, press: { scale: 1.1 } }}
           className="label"
         >
-          Inscreva-se
+          Saiba mais!
         </motion.div>
       </motion.button>
     </MotionConfig>

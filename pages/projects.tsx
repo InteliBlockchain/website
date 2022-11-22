@@ -4,22 +4,31 @@ import Header from '@components/Header';
 import Layout from '@components/Layout';
 import { CardProps } from '@typescript/interfaces';
 
+import healthVault from '../assets/health-vault.jpeg'
+import Image from 'next/image';
+
 const Card = ({
   title,
   desc = '',
-  link = 'https://github.com/InteliBlockchain'
+  link = 'https://github.com/InteliBlockchain',
+  image
 }: CardProps) => {
   return (
     <Link href={link}>
-      <a
-        target="_blank"
-        className="rounded-lg border px-4 py-24 border-neutral-600 mt-4 md:mt-0 montserrat md:w-full w-10/12 hover:scale-105 transform transition duration-500 ease-in-out bg shadow-lg"
-      >
-        <div className="my-auto flex flex-col justify-between">
-          <p className="font-bold text-2xl text-center">{title}</p>
-
-          <p className="text-lg text-center">{desc}</p>
+      <a target={'_blank'} className="flex flex-col items-center justify-center w-full h-full rounded-lg shadow-lg bg-white hover:scale-105 transform transition duration-300 ease-in-out hover:z-10">
+      <div className="w-full h-full rounded overflow-hidden shadow-lg">
+        <Image
+          className="w-full"
+          src={healthVault}
+          alt={title}
+        />
+        <div className="px-6 py-2">
+          <div className="font-bold text-xl mb-2">{title}</div>
+          <p className="text-gray-700 text-base">
+            {desc}
+          </p>
         </div>
+      </div>
       </a>
     </Link>
   );
@@ -34,13 +43,15 @@ const Projects = () => {
         title: 'Inteli ID',
         description:
           'Já pensou como seria ter todo seu currículo de estudante em uma blockchain? Esse foi o projeto realizado com a parceria do Inteli',
-        link: 'https://github.com/InteliBlockchain/projeto_inteli'
+        link: 'https://github.com/InteliBlockchain/projeto_inteli',
+        image: healthVault
       },
       {
         title: 'Our Neighbours',
         description:
           'Fazer doações para outro país parece meio enviável...certo? Errado! Com o Our Neighbours, projeto desenvolvido no hackathon Ethereum SP, isso se tornou mais fácil e prático. ',
-        link: 'https://our-neighbors.herokuapp.com/'
+        link: 'https://our-neighbors.herokuapp.com/',
+        image: healthVault
       },
       {
         title: 'Em breve...',
