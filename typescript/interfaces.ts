@@ -9,7 +9,7 @@ export interface UserProps {
 
 export interface CardProps {
   title: string;
-  desc?: string;
+  description?: string;
   link?: string;
-  image?: string;
+  imageUri?: string;
 }
