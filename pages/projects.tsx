@@ -6,6 +6,7 @@ import { CardProps } from '@typescript/interfaces';
 
 import healthVault from '../assets/health-vault.jpeg'
 import Image from 'next/image';
+import useTranslation from 'next-translate/useTranslation';
 
 const Card = ({
   title,
@@ -77,7 +78,7 @@ const Projects = () => {
       <div className="flex flex-col pt-8 p-2 mb-8 w-full lg:w-5/6 mx-auto">
         <div className="text-6xl md:text-7xl md:mb-8 p-0 mb-4">
           <p className="montserrat text-gradient font-bold text-left">
-            Projetos
+            {t('common:projects')}
           </p>
         </div>
 

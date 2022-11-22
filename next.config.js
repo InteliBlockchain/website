@@ -1,7 +1,4 @@
 // next.config.js
-module.exports = {
-  image: {
-    //accept images from any domain
-    domains: ['*'],
-  }
-};
+const nextTranslate = require('next-translate');
+
+module.exports = nextTranslate();   

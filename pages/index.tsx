@@ -9,11 +9,15 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Timer from '@components/Timer';
 
+import useTranslation from 'next-translate/useTranslation';
+
 const IndexPage = () => {
   const router = useRouter()
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const Router = useRouter();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!Router.isReady) return;
@@ -48,17 +52,20 @@ const IndexPage = () => {
             <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
               <div>
                 <p className="font-bold text-zinc-800 montserrat text-left">
-                  Nós somos o{' '}
-                  <span className="montserrat text-gradient font-bold">
-                    Inteli Blockchain!
-                  </span>
+                  {t('common:Process1')}{' '}
                 </p>
+                <span className="montserrat text-gradient font-bold">
+                  {t('common:Process2')}
+                </span>
               </div>
             </div>
 
             <div className="text-6xl md:text-7xl md:mx-6 items-center md:w-1/2 my-8">
               <p className="montserrat text-lg text-zinc-800 mb-2">
-                Construindo soluções em Blockchain e trazendo a inovação até você 💡
+                {t('common:oport')}
+              </p>
+              <p className="montserrat text-lg text-zinc-800">
+                {t('common:time')}<Timer />
               </p>
             </div>
 
