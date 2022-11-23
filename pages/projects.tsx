@@ -42,6 +42,8 @@ const Card = ({
 };
 
 const Projects = () => {
+  const { t } = useTranslation();
+
   const [projects, setProjects] = useState<CardProps[]>([
     {
       title: 'Inteli ID',
@@ -55,19 +57,19 @@ const Projects = () => {
       link: 'https://github.com/lyorrei/inteli_blockchain_hackaton',
       description:
         'Fazer doações para outro país parece meio enviável...certo? Errado! Com o Our Neighbours, projeto desenvolvido no hackathon Ethereum SP, isso se tornou mais fácil e prático. ',
-      imageUri: "https://raw.githubusercontent.com/InteliBlockchain/HealthVault/main/our-neighbors.jpeg"
+      imageUri: "https://github.com/InteliBlockchain/InteliBlockchain/blob/main/assets/our-neighbors.png"
     },
     {
       title: "Snack Fair",
       link: "https://github.com/lyorrei/snack-fair",
       description: "Durante a pandemia houve um crescimento exponencial dos aplicativos de entrega de comida no Brasil. Descubra como resolvemos esse problema com o Snack Fair.",
-      imageUri: "https://raw.githubusercontent.com/InteliBlockchain/HealthVault/main/snack-fair.jpeg"
+      imageUri: "https://github.com/InteliBlockchain/InteliBlockchain/blob/main/assets/snack-fair.png"
     },
     {
       title: 'Health Vault',
       link: 'https://github.com/InteliBlockchain/health-vault',
       description: 'Health Vault é um sistema web conectado com a blockchain que busca facilitar o registro de informações de saúde de forma segura.',
-      imageUri: 'https://raw.githubusercontent.com/InteliBlockchain/HealthVault/main/healthvault.jpeg'
+      imageUri: 'https://raw.githubusercontent.com/InteliBlockchain/HealthVault/main/health-vault.jpeg'
     }
   ]);
 
