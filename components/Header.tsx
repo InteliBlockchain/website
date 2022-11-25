@@ -1,8 +1,9 @@
-import React, { ReactNode } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import InteliBlockchain from '@assets/InteliBlockchain.jsx';
-import { HeaderProps } from '@typescript/types';
+import React, { ReactNode } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import InteliBlockchain from "@assets/InteliBlockchain.jsx";
+import { HeaderProps } from "@typescript/types";
+import { ToggleDarkMode } from "./ToggleDarkMode";
 
 const Header = ({ selectedPage }: HeaderProps) => {
   return (
@@ -18,7 +19,7 @@ const Header = ({ selectedPage }: HeaderProps) => {
           <Link href="/">
             <a
               className={`${
-                selectedPage == 'Home' ? 'border-b-orange-400 border-b-2' : ''
+                selectedPage == "Home" ? "border-b-orange-400 border-b-2" : ""
               } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear`}
             >
               Home
@@ -28,9 +29,9 @@ const Header = ({ selectedPage }: HeaderProps) => {
           <Link href="/about">
             <a
               className={`${
-                selectedPage == 'Sobre nós'
-                  ? 'border-b-orange-400 border-b-2'
-                  : ''
+                selectedPage == "Sobre nós"
+                  ? "border-b-orange-400 border-b-2"
+                  : ""
               } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
               Sobre nós
@@ -40,38 +41,30 @@ const Header = ({ selectedPage }: HeaderProps) => {
           <Link href="/projects">
             <a
               className={`${
-                selectedPage == 'Projetos'
-                  ? 'border-b-orange-400 border-b-2'
-                  : ''
+                selectedPage == "Projetos"
+                  ? "border-b-orange-400 border-b-2"
+                  : ""
               } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
               Projetos
             </a>
           </Link>
 
-          {/* <Link href="/processo-seletivo">
-            <a
-              className={`${
-                selectedPage == "processo-seletivo"
-                  ? "border-b-orange-400 border-b-2"
-                  : ""
-              } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
-            >
-              Processo seletivo
-            </a>
-          </Link> */}
-
           <Link href="/contact">
             <a
               className={`${
-                selectedPage == 'Contato'
-                  ? 'border-b-orange-400 border-b-2'
-                  : ''
+                selectedPage == "Contato"
+                  ? "border-b-orange-400 border-b-2"
+                  : ""
               } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
             >
               Contato
             </a>
           </Link>
+
+          <div className="transition duration-200 ease-linear ml-4 md:ml-8">
+            <ToggleDarkMode />
+          </div>
         </div>
       </nav>
     </header>
