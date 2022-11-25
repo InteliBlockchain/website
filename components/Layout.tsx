@@ -4,7 +4,11 @@ import Head from "next/head";
 import { LayoutProps } from "@typescript/types";
 import { ToastContainer } from "react-toastify";
 
-const Layout = ({ children, title, hide = false }: LayoutProps) => {
+const Layout = ({ 
+  children, 
+  title,
+  hide = false
+}: LayoutProps) => {
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||
@@ -20,9 +24,7 @@ const Layout = ({ children, title, hide = false }: LayoutProps) => {
   return (
     <div className="flex-1 w-full h-full md:pb-8 select-none">
       <Head>
-        <title>
-          {title ? `${title} - Inteli Blockchain` : "Inteli Blockchain"}
-        </title>
+        <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
 
@@ -38,9 +40,11 @@ const Layout = ({ children, title, hide = false }: LayoutProps) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme={localStorage.theme === "dark" ? "dark" : "light"}
+        theme="light"
       />
-      <div className="md:mt-24 mt-32 bg-[#e2e2e2] dark:bg-[#2e2e2e]">{children}</div>
+
+
+      <div className="md:mt-24 mt-32 h-full">{children}</div>
 
       {/* <Footer hide={hide} /> */}
     </div>

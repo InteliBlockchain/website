@@ -3,7 +3,11 @@ import Header from '@components/Header';
 import Layout from '@components/Layout';
 import { UserProps } from '@typescript/interfaces';
 
+import useTranslation from 'next-translate/useTranslation';
+
 const User = ({ id, name }: UserProps) => {
+
+
   return (
     <Link href={`https://github.com/${name}`}>
       <a target="_blank">
@@ -23,6 +27,8 @@ const User = ({ id, name }: UserProps) => {
 };
 
 const About = () => {
+  const { t } = useTranslation();
+
   const users = [
     { name: 'AbnerSilvaBarbosa', id: '99296562' },
     { name: 'Bianca-Cassemiro', id: '99203402' },
@@ -47,17 +53,14 @@ const About = () => {
         <div className="justify-center pt-8 md:pt-64 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
           <div className="text-6xl md:text-8xl md:mx-6 md:my-2 items-center">
             <p className="font-bold text-zinc-800 montserrat text-left">
-              Sobre{' '}
-              <span className="montserrat text-gradient font-bold">nós</span>
+              {t('common:about1')}{' '}
+              <span className="montserrat text-gradient font-bold">{t('common:about2')}</span>
             </p>
           </div>
 
           <div className="text-6xl md:text-7xl md:mx-6 items-center mt-8">
             <p className="montserrat text-lg text-zinc-800">
-              Somos universitários da faculdade de tecnologia Inteli - Instituto
-              de Tecnologia e Liderança. Criamos o Inteli Blockchain com o
-              objetivo de fomentar o uso dessa tecnologia e resolver problemas
-              reais.
+              {t('common:description')}
             </p>
           </div>
         </div>

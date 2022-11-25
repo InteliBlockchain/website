@@ -69,8 +69,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/api/users/_app.jsx",
-    "tailwind.config.js"
+    "pages/api/users/_app.jsx"
   ],
   "exclude": [
     "node_modules"
