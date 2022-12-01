@@ -8,7 +8,7 @@ const Footer = (hide?: FooterProps) => {
     <div>
       <footer
         className={
-          'md:fixed w-full md:bottom-0 px-2 py-4 rounded-t-lg mx-auto text-end z-10 shadow-lg bg border-t-gray-400 text-sm'
+          'sm:fixed w-full md:bottom-0 px-2 py-4 rounded-t-lg mx-auto text-end z-10 shadow-lg border-t-gray-400 text-sm'
         }
       >
         <span>
