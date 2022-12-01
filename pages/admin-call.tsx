@@ -3,7 +3,7 @@ import axios from '../axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { adminModel } from '@typescript/types';
-import { useCookies } from "react-cookie"
+import { useCookies } from 'react-cookie';
 import Header from '@components/Header';
 import Layout from '@components/Layout';
 import Github from '@assets/Github';
@@ -18,11 +18,10 @@ import { useRouter } from 'next/router';
 const Admin = () => {
   const [data, setData] = useState([]);
   const [alreadyMailed, setAlreadyMailed] = useState(false);
-  const [cookie, setCookie] = useCookies(["token"])
+  const [cookie, setCookie] = useCookies(['token']);
   const { register, handleSubmit, watch, reset } = useForm<adminModel>();
   const [buttonText, setButtonText] = useState('Enviar');
   const [disable, setDisabled] = useState(false);
-
 
   const router = useRouter();
 
@@ -39,19 +38,15 @@ const Admin = () => {
     }
 
     try {
-      const response = await axios.post(`/Subscription/callAdm`, {
+      const response = await axios.post(`/Admin/callAdm`, {
         email: data.email
       });
-      setAlreadyMailed(true)
+      setAlreadyMailed(true);
       setDisabled(false);
       setButtonText('Enviar');
       toast.success('Mensagem Enviada com sucesso! Verifique seu email');
     } catch (err) {
-      console.log(err);
-      toast.error(
-        'Erro ao realizar envio.\nErro: ' +
-        err.response.data
-      );
+      toast.error('Erro ao realizar envio.\nErro: ' + err.response.data);
       setDisabled(false);
       setButtonText('Enviar');
     }
@@ -69,23 +64,23 @@ const Admin = () => {
       return;
     }
 
-    setCookie("token", data.token);
+    setCookie('token', data.token);
     toast.success('Cookie definido com sucesso');
     setTimeout(() => {
-      router.push('/admin');
+      router.push(`/admin`);
     }, 2000);
   };
 
-  const loadSubscriptions = async () => { };
+  const loadSubscriptions = async () => {};
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
-  const onReload = async () => { };
+  const onReload = async () => {};
 
-  const deleteSub = async (id: string) => { };
+  const deleteSub = async (id: string) => {};
 
   return (
-    <Layout>
+    <Layout title="Admin - Validação">
       <div className="flex flex-col md:flex-row p-2 justify-around mb-8 w-full lg:w-5/6 mx-auto my-auto inset-0">
         {/* Div 1 - Text */}
         <div className="justify-center pt-8 md:pt-15 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
@@ -102,7 +97,6 @@ const Admin = () => {
         {/* Div 2 - Image */}
         <div className="md:justify-items-center md:pt-8 md:absolute md:right-8 lg:right-32 mx-2 md:mx-0 montserrat md:w-5/12">
           <form className="mx-2 md:mx-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
-
             <p className="font-semibold text-lg text-gradient">
               Insira seu email:
             </p>
@@ -115,13 +109,14 @@ const Admin = () => {
               className="w-full border border-gray-300 p-2 text-lg rounded-t-md border-b-2 border-b-indigo-600 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent mb-8"
             />
 
-            {(!alreadyMailed) && (
+            {!alreadyMailed && (
               <div className="flex flex-col items-center">
                 <button
-                  className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${disable
-                    ? 'cursor-not-allowed bg-red-600 text-white'
-                    : 'bg-gradient'
-                    }`}
+                  className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
+                    disable
+                      ? 'cursor-not-allowed bg-red-600 text-white'
+                      : 'bg-gradient'
+                  }`}
                   disabled={disable}
                 >
                   <input type="submit" value={buttonText} />
@@ -129,7 +124,10 @@ const Admin = () => {
               </div>
             )}
           </form>
-          <form className="mx-2 md:mx-4 mt-4" onSubmit={handleSubmit(onSubmitToken)}>
+          <form
+            className="mx-2 md:mx-4 mt-4"
+            onSubmit={handleSubmit(onSubmitToken)}
+          >
             {alreadyMailed && (
               <p className="font-semibold text-lg text-gradient">
                 Insira o token recebido:
@@ -147,21 +145,21 @@ const Admin = () => {
             {alreadyMailed && (
               <div className="flex flex-col items-center">
                 <button
-                  className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${disable
-                    ? 'cursor-not-allowed bg-red-600 text-white'
-                    : 'bg-gradient'
-                    }`}
+                  className={`bg-gradient-to-r text-white font-bold text-lg p-4 rounded-md shadow-md w-full md:w-3/4 mb-16 ${
+                    disable
+                      ? 'cursor-not-allowed bg-red-600 text-white'
+                      : 'bg-gradient'
+                  }`}
                   disabled={disable}
                 >
                   <input type="submit" value={buttonText} />
                 </button>
               </div>
             )}
-
           </form>
         </div>
       </div>
-    </Layout >
+    </Layout>
   );
 };
 

@@ -72,7 +72,6 @@ const SelectiveProcess = () => {
         router.push('/');
       }, 1500);
     } catch (err) {
-      console.log(err);
       toast.error(
         'Erro ao realizar inscrição! Tente novamente mais tarde.\nErro: ' +
         err.response.data +

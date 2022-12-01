@@ -3,13 +3,19 @@ import Header from '@components/Header';
 import Layout from '@components/Layout';
 import { UserProps } from '@typescript/interfaces';
 
+import useTranslation from 'next-translate/useTranslation';
+
 const User = ({ id, name }: UserProps) => {
+  var src_image= `https://avatars.githubusercontent.com/u/${id}?v=4`
+  if (id.includes('http')){
+    src_image = id
+  }
   return (
     <Link href={`https://github.com/${name}`}>
       <a target="_blank">
         <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
           <img
-            src={`https://avatars.githubusercontent.com/u/${id}?v=4`}
+            src={src_image}
             width={200}
             height={200}
             className="rounded-full shadow-md"
@@ -23,19 +29,35 @@ const User = ({ id, name }: UserProps) => {
 };
 
 const About = () => {
+  const { t } = useTranslation();
+
   const users = [
     { name: 'AbnerSilvaBarbosa', id: '99296562' },
+    { name: 'angrysine', id: '99188421' },
     { name: 'Bianca-Cassemiro', id: '99203402' },
+    { name: 'elisaflemer', id: '99259251' },
+    { name: 'emanuelemorais', id: '99221221' },
+    { name: 'EnyaOliveira', id: '110364944' },
+    { name: 'gabriosilva', id: '20153552' },
+    { name: 'henriquemarlon', id: '89201795' },
+    { name: 'jordan-acs', id: '99195678' },
+    { name: 'KathlynDiwan', id: '99209712' },
+    { name: 'Lemos1347', id: '99190347' },
     { name: 'luiz-k-alencar', id: '68920578' },
     { name: 'lyorrei', id: '44589251' },
     { name: 'marcelofeitoza', id: '71825192' },
-    { name: 'mflorencio-inteli', id: '99209916' },
+    { name: 'marcelomaiaf', id: '110571106' },
+    { name: 'mflorencio-inteli', id: 'https://media-exp1.licdn.com/dms/image/C4D03AQG50Sle-iUqAw/profile-displayphoto-shrink_800_800/0/1626134386718?e=1675296000&v=beta&t=AkQ12iIcgGhrVCR9ATThj1TdNk8MgSBAZ6AyH4Ub-oQ' },
     { name: 'paulo-evangelista', id: '99093520' },
     { name: 'PedroHaggeBaptista', id: '99206621' },
-    { name: 'vict0rcarvalh0', id: '99208741' },
-    { name: 'Lemos1347', id: '99190347' },
-    { name: 'joaocarazzato', id: '99187756' },
-    { name: 'henriquemarlon', id: '89201795' }
+    { name: 'RafaelTechio', id: '110608373' },
+    { name: 'rapha-lisboa', id: 'https://media-exp1.licdn.com/dms/image/D4D03AQEZeH5vrKP0zw/profile-displayphoto-shrink_800_800/0/1665263821062?e=1675296000&v=beta&t=0EKPrT5zMEyGEn9Q1qad0E4iBWai5w6BzfJaNQr1XtY' },
+    { name: 'Txrmarcos', id: '110488788' },
+    { name: 'vict0rcarvalh0', id: 'https://media-exp1.licdn.com/dms/image/C4E03AQGHqCy-t8TZ5w/profile-displayphoto-shrink_800_800/0/1657333014016?e=1675296000&v=beta&t=_yD6U63pgVosCI_TlkJl8S1kAGHvO_NQC9UV8T6TRCk' },
+    { name: 'ViniciusKK', id: '110407686' },
+    { name: 'Xandebrabe', id: 'https://media-exp1.licdn.com/dms/image/C4E03AQGklUF0D4eLUQ/profile-displayphoto-shrink_800_800/0/1657313485534?e=1675296000&v=beta&t=pmH36dosfDSP9hYAtVQMgjQBLeF1oc4aP7bbRYnqvfI' },
+    { name: 'YagoDevs', id: '110265917' },
+    
   ];
 
   return (
@@ -47,17 +69,14 @@ const About = () => {
         <div className="justify-center pt-8 md:pt-64 md:fixed w-full md:w-1/2 lg:w-5/12 md:left-8 lg:left-32 mb-8 md:mb-0 px-2">
           <div className="text-6xl md:text-8xl md:mx-6 md:my-2 items-center">
             <p className="font-bold text-zinc-800 montserrat text-left">
-              Sobre{' '}
-              <span className="montserrat text-gradient font-bold">nós</span>
+              {t('common:about1')}{' '}
+              <span className="montserrat text-gradient font-bold">{t('common:about2')}</span>
             </p>
           </div>
 
           <div className="text-6xl md:text-7xl md:mx-6 items-center mt-8">
             <p className="montserrat text-lg text-zinc-800">
-              Somos universitários da faculdade de tecnologia Inteli - Instituto
-              de Tecnologia e Liderança. Criamos o Inteli Blockchain com o
-              objetivo de fomentar o uso dessa tecnologia e resolver problemas
-              reais.
+              {t('common:description')}
             </p>
           </div>
         </div>

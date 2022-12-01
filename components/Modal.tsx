@@ -37,9 +37,6 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
       });
       toast.success(res.data);
 
-      console.log('Try');
-      console.log(res.data);
-
       setDisabled(false);
       setButtonText('Enviar');
     } catch (err) {
@@ -51,7 +48,6 @@ const Modal: React.FC<Props> = ({ isOpened, closeModal }) => {
       setButtonText('Enviar');
     }
   };
-  console.log(errors);
 
   return isOpened ? (
     <>

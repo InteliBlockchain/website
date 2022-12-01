@@ -30,7 +30,9 @@ const Layout = ({
         pauseOnHover
         theme="light"
       />
-      <div className="md:mt-24 mt-32">{children}</div>
+
+
+      <div className="md:mt-24 mt-32 h-full">{children}</div>
 
       {/* <Footer hide={hide} /> */}
     </div>
