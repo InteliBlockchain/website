@@ -4,32 +4,49 @@ import Layout from '@components/Layout';
 import { UserProps } from '@typescript/interfaces';
 
 import useTranslation from 'next-translate/useTranslation';
+import Image from 'next/image';
+import Xand from '@assets/members/Xandão.jpg';
+import florencio from '@assets/members/florencio.jpeg';
 
 const User = ({ id, name }: UserProps) => {
-  var src_image= `https://avatars.githubusercontent.com/u/${id}?v=4`
-  if (id.includes('http')){
-    src_image = id
-  }
-  return (
-    <Link href={`https://github.com/${name}`}>
-      <a target="_blank">
-        <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
-          <img
-            src={src_image}
-            width={200}
-            height={200}
-            className="rounded-full shadow-md"
-          />
+  var src_image = `https://avatars.githubusercontent.com/u/${id}?v=4`;
+  // if (id.includes('http')) {
+  //   src_image = id;
+  // }
 
-          <p className="montserrat text-lg mt-2">{name}</p>
-        </div>
-      </a>
+name||
+
+  return (
+    <Link target="_blank" href={`https://github.com/${name}`}>
+      <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
+        <Image
+          alt={name}
+          loader={
+            () =>
+              name.includes('mflorencio-inteli') || name.includes('Xandebrabe')
+                ? id
+                : `https://avatars.githubusercontent.com/u/${id}?v=4`
+            // florencio.src
+          }
+          src={
+            name.includes('mflorencio-inteli') || name.includes('Xandebrabe')
+              ? id
+              : `https://avatars.githubusercontent.com/u/${id}?v=4`
+          }
+          width={200}
+          height={200}
+          className="rounded-full shadow-md"
+        />
+
+        <p className="montserrat text-lg mt-2">{name}</p>
+      </div>
     </Link>
   );
 };
 
 const About = () => {
   const { t } = useTranslation();
+
 
   const users = [
     { name: 'AbnerSilvaBarbosa', id: '99296562' },
@@ -47,18 +64,18 @@ const About = () => {
     { name: 'lyorrei', id: '44589251' },
     { name: 'marcelofeitoza', id: '71825192' },
     { name: 'marcelomaiaf', id: '110571106' },
-    { name: 'mflorencio-inteli', id: 'https://media-exp1.licdn.com/dms/image/C4D03AQG50Sle-iUqAw/profile-displayphoto-shrink_800_800/0/1626134386718?e=1675296000&v=beta&t=AkQ12iIcgGhrVCR9ATThj1TdNk8MgSBAZ6AyH4Ub-oQ' },
+    { name: 'mflorencio-inteli', id: florencio.src },
     { name: 'paulo-evangelista', id: '99093520' },
     { name: 'PedroHaggeBaptista', id: '99206621' },
     { name: 'RafaelTechio', id: '110608373' },
-    { name: 'rapha-lisboa', id: 'https://media-exp1.licdn.com/dms/image/D4D03AQEZeH5vrKP0zw/profile-displayphoto-shrink_800_800/0/1665263821062?e=1675296000&v=beta&t=0EKPrT5zMEyGEn9Q1qad0E4iBWai5w6BzfJaNQr1XtY' },
+    { name: 'rapha-lisboa', id: '99208097' },
     { name: 'Txrmarcos', id: '110488788' },
-    { name: 'vict0rcarvalh0', id: 'https://media-exp1.licdn.com/dms/image/C4E03AQGHqCy-t8TZ5w/profile-displayphoto-shrink_800_800/0/1657333014016?e=1675296000&v=beta&t=_yD6U63pgVosCI_TlkJl8S1kAGHvO_NQC9UV8T6TRCk' },
+    { name: 'vict0rcarvalh0', id: '99208741' },
     { name: 'ViniciusKK', id: '110407686' },
-    { name: 'Xandebrabe', id: 'https://media-exp1.licdn.com/dms/image/C4E03AQGklUF0D4eLUQ/profile-displayphoto-shrink_800_800/0/1657313485534?e=1675296000&v=beta&t=pmH36dosfDSP9hYAtVQMgjQBLeF1oc4aP7bbRYnqvfI' },
-    { name: 'YagoDevs', id: '110265917' },
-    
+    { name: 'Xandebrabe', id: Xand.src },
+    { name: 'YagoDevs', id: '110265917' }
   ];
+
 
   return (
     <Layout title="Inteli Blockchain" hide={true}>
