@@ -12,14 +12,14 @@ const Header = ({ selectedPage }: HeaderProps) => {
 
   return (
     <header className="flex-1 w-full py-4 lg:px-2 justify-center items-center fixed top-0 z-50 bg">
-      <nav className="p-2 w-full md:w-5/6 mx-auto flex flex-col justify-between md:flex-row items-center">
+      <nav className="p-2 w-full md:w-5/6 mx-auto flex flex-col justify-between lg:flex-row items-center">
         <Link href="/">
           <a>
             <InteliBlockchain width={320} />
           </a>
         </Link>
 
-        <div className="flex montserrat font-semibold text-md items-center md:mt-0 mt-6 text-sm md:text-lg">
+        <div className="flex montserrat font-semibold text-md items-center lg:mt-0 mt-6 text-sm lg:text-lg">
           <Link href="/">
             <a
               className={`${selectedPage == 'Home' ? 'border-b-orange-400 border-b-2' : ''
