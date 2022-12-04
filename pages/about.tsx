@@ -13,9 +13,6 @@ const User = ({ id, name }: UserProps) => {
   // if (id.includes('http')) {
   //   src_image = id;
   // }
-
-name||
-
   return (
     <Link target="_blank" href={`https://github.com/${name}`}>
       <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
