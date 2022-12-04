@@ -46,12 +46,12 @@ const IndexPage = () => {
       <Layout title="Inteli Blockchain" hide={false}>
         <Header selectedPage="Home" />
 
-        <div className="flex flex-1 flex-col md:flex-row justify-around px-8 lg:px-0 w-full lg:w-5/6 mx-auto my-auto h-full pb-24">
+        <div className="flex flex-1 flex-col md:flex-row justify-around px-8 lg:px-0 w-full lg:w-5/6 mx-auto my-auto h-full pt-24 md:pt-0">
           {/* Div 1 - Text */}
-          <div className="md:w-3/4 lg:w-1/2 w-full justify-center py-8 mb-2 md:pt-12 h-auto">
-            <div className="text-6xl md:text-7xl lg:text-8xl md:mx-6 md:my-2 items-center">
+          <div className="md:w-3/4 lg:w-1/2 w-full justify-center mb-2 md:pt-12 h-auto">
+            <div className="text-6xl md:text-7xl xl:text-8xl md:mx-6 md:my-2 items-center">
               <div>
-                <p className="font-bold text-zinc-800 montserrat text-left">
+                <p className="font-bold text-zinc-800 montserrat text-left xl:text-7xl">
                   {t('common:Process1')}{' '}
                 </p>
                 <span className="montserrat text-gradient font-bold">
@@ -81,7 +81,7 @@ const IndexPage = () => {
           </div>
 
           {/* Div 2 - Image */}
-          <div className="hidden lg:flex md:w-1/4 lg:w-1/2 w-full p-0 m-0">
+          <div className=" hidden w-full lg:flex md:w-1/4 lg:w-1/2 w-full p-0 m-0">
             <Cube />
           </div>
         </div>
