@@ -4,24 +4,42 @@ import Layout from '@components/Layout';
 import { UserProps } from '@typescript/interfaces';
 
 import useTranslation from 'next-translate/useTranslation';
+import Image from 'next/image';
+import Xand from '@assets/members/Xandão.jpg';
+import florencio from '@assets/members/florencio.jpeg';
 
 const User = ({ id, name }: UserProps) => {
+  var src_image = `https://avatars.githubusercontent.com/u/${id}?v=4`;
+  // if (id.includes('http')) {
+  //   src_image = id;
+  // }
 
+name||
 
   return (
-    <Link href={`https://github.com/${name}`}>
-      <a target="_blank">
-        <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
-          <img
-            src={`https://avatars.githubusercontent.com/u/${id}?v=4`}
-            width={200}
-            height={200}
-            className="rounded-full shadow-md"
-          />
+    <Link target="_blank" href={`https://github.com/${name}`}>
+      <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
+        <Image
+          alt={name}
+          loader={
+            () =>
+              name.includes('mflorencio-inteli') || name.includes('Xandebrabe')
+                ? id
+                : `https://avatars.githubusercontent.com/u/${id}?v=4`
+            // florencio.src
+          }
+          src={
+            name.includes('mflorencio-inteli') || name.includes('Xandebrabe')
+              ? id
+              : `https://avatars.githubusercontent.com/u/${id}?v=4`
+          }
+          width={200}
+          height={200}
+          className="rounded-full shadow-md"
+        />
 
-          <p className="montserrat text-lg mt-2">{name}</p>
-        </div>
-      </a>
+        <p className="montserrat text-lg mt-2">{name}</p>
+      </div>
     </Link>
   );
 };
@@ -29,20 +47,35 @@ const User = ({ id, name }: UserProps) => {
 const About = () => {
   const { t } = useTranslation();
 
+
   const users = [
     { name: 'AbnerSilvaBarbosa', id: '99296562' },
+    { name: 'angrysine', id: '99188421' },
     { name: 'Bianca-Cassemiro', id: '99203402' },
+    { name: 'elisaflemer', id: '99259251' },
+    { name: 'emanuelemorais', id: '99221221' },
+    { name: 'EnyaOliveira', id: '110364944' },
+    { name: 'gabriosilva', id: '20153552' },
+    { name: 'henriquemarlon', id: '89201795' },
+    { name: 'jordan-acs', id: '99195678' },
+    { name: 'KathlynDiwan', id: '99209712' },
+    { name: 'Lemos1347', id: '99190347' },
     { name: 'luiz-k-alencar', id: '68920578' },
     { name: 'lyorrei', id: '44589251' },
     { name: 'marcelofeitoza', id: '71825192' },
-    { name: 'mflorencio-inteli', id: '99209916' },
+    { name: 'marcelomaiaf', id: '110571106' },
+    { name: 'mflorencio-inteli', id: florencio.src },
     { name: 'paulo-evangelista', id: '99093520' },
     { name: 'PedroHaggeBaptista', id: '99206621' },
+    { name: 'RafaelTechio', id: '110608373' },
+    { name: 'rapha-lisboa', id: '99208097' },
+    { name: 'Txrmarcos', id: '110488788' },
     { name: 'vict0rcarvalh0', id: '99208741' },
-    { name: 'Lemos1347', id: '99190347' },
-    { name: 'joaocarazzato', id: '99187756' },
-    { name: 'henriquemarlon', id: '89201795' }
+    { name: 'ViniciusKK', id: '110407686' },
+    { name: 'Xandebrabe', id: Xand.src },
+    { name: 'YagoDevs', id: '110265917' }
   ];
+
 
   return (
     <Layout title="Inteli Blockchain" hide={true}>
