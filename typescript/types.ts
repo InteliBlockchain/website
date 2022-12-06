@@ -27,6 +27,12 @@ export type dataModel = {
   about: string;
 };
 
+export type dataModelContact ={
+  name: string;
+  email: string;
+  bodyEmail: string;
+}
+
 export type adminModel = {
   email: string;
   token: string;
