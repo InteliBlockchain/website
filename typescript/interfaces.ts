@@ -13,3 +13,8 @@ export interface CardProps {
   link?: string;
   imageUri?: string;
 }
+
+export interface SponsorsProps{
+  title: string;
+  image?: string;
+}
