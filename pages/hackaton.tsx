@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Header from '@components/Header';
 import Layout from '@components/Layout';
 import Link from 'next/link';
@@ -13,7 +12,7 @@ import { GetServerSideProps } from 'next';
 import { toast } from 'react-toastify';
 import { SponsorsProps } from '@typescript/interfaces';
 
-const Card = ({
+const Hackaton = ({
     title,
     image
   }: SponsorsProps) => {
@@ -25,8 +24,6 @@ const Card = ({
         <h1 className="pt-14 montserrat text-gradient font-bold text-8xl">
           Hackaton Inteli Blockchain
         </h1>
-        
-        
       </div>
     </Layout>
   );

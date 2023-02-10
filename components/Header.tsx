@@ -73,6 +73,16 @@ const Header = ({ selectedPage }: HeaderProps) => {
               {t('common:contact')}
             </a>
           </Link>
+          <Link href="/hackaton">
+            <a
+              className={`${selectedPage == 'Hackaton'
+                ? 'border-b-orange-400 border-b-2'
+                : ''
+                } hover:border-b-orange-400 hover:border-b-2 transition duration-200 ease-linear ml-4 md:ml-8`}
+            >
+              {t('Hackaton')}
+            </a>
+          </Link>
         </div>
       </nav>
     </header>

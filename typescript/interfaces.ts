@@ -18,3 +18,8 @@ export interface SponsorsProps{
   title: string;
   image?: string;
 }
+
+export interface WorkshopsProps{
+  title: string;
+  image?: string;
+}
