@@ -13,17 +13,26 @@ import { toast } from 'react-toastify';
 import { SponsorsProps } from '@typescript/interfaces';
 
 const Hackaton = ({
-    title,
-    image
-  }: SponsorsProps) => {
+  title,
+  image
+}: SponsorsProps) => {
 
   return (
     <Layout title="Inteli Blockchain">
       <Header selectedPage="Hackaton" />
       <div className="text-center">
-        <h1 className="pt-14 montserrat text-gradient font-bold text-8xl">
-          Hackaton Inteli Blockchain
+        <h1 className="challengeText montserrat">
+          Challenge
         </h1>
+        <h3 className="btgText montserrat">
+          Break The Ground
+        </h3>
+        <h2 className="apoioHacka montserrat">
+          Apoio
+        </h2>
+        <h2 className="apoioHacka montserrat">
+          Patrocinadores
+        </h2>
       </div>
     </Layout>
   );
