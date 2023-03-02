@@ -14,8 +14,6 @@ const User = ({ id, name }: UserProps) => {
   //   src_image = id;
   // }
 
-name||
-
   return (
     <Link target="_blank" href={`https://github.com/${name}`}>
       <div className="text-center hover:scale-110 transform transition duration-500 ease-in-out mb-2">
@@ -99,7 +97,7 @@ const About = () => {
         </div>
 
         {/* Div 2 - Image */}
-        <div className="grid grid-col-2 justify-items-center lg:grid-cols-2 md:grid-rows-2 md:gap-4 md:pt-64 md:absolute md:right-8 lg:right-32 px-2 montserrat md:w-5/12">
+        <div className="grid grid-col-2 justify-items-center lg:grid-cols-2 md:grid-rows-2 md:gap-4 md:pt-32 md:absolute md:right-8 lg:right-32 px-2 montserrat md:w-5/12">
           {/* mx-auto justify-items-center montserrat md:absolute w-full md:w-5/12 md:right-32 border border-black">  */}
           {users.map(user => (
             <User name={user.name} id={user.id} key={user.id} />
