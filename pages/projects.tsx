@@ -65,7 +65,7 @@ const Projects = () => {
     },
     {
       title: 'Health Vault',
-      link: 'https://github.com/InteliBlockchain/health-vault',
+      link: 'https://github.com/InteliBlockchain/HealthVault',
       description: t('common:projectDescription4'),
       imageUri: 'https://github.com/InteliBlockchain/website/blob/main/assets/health-vault.jpeg?raw=true'
     },
